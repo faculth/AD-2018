@@ -1,79 +1,85 @@
-
-CREATE DATABASE IF NOT EXISTS demo;
-
-USE demo;
-
-DROP TABLE IF EXISTS user;
-
-
- CREATE TABLE IF NOT EXISTS roles (
-    id INT(8) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    nombre varchar(20)  NOT NULL
+CREATE TABLE roles (
+    id			INT				IDENTITY(1,1) NOT NULL,
+    nombre		VARCHAR (50)	NOT NULL
+	
+	PRIMARY KEY (id)
   );
 
- CREATE TABLE IF NOT EXISTS usuarios (
-   dni INT(8) NOT NULL PRIMARY KEY,
-   nombre VARCHAR(40) NOT NULL,
-   rol_id INT (8) NOT NULL,
-   password varchar (128) NOT NULL,
-   activo TINYINT (3) DEFAULT 1,
+ CREATE TABLE usuarios (
+   dni			INT				NOT NULL,
+   nombre		VARCHAR (40)	NOT NULL,
+   rol_id 		INT				NOT NULL,
+   password		VARCHAR (128)	NOT NULL,
+   activo		BIT				NOT NULL DEFAULT 1
+   
+   PRIMARY KEY (dni),
    FOREIGN KEY (rol_id) REFERENCES roles(id)
   );
 
-  CREATE TABLE IF NOT EXISTS productos (
-    codigo int(64) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    nombre varchar(20)  NOT NULL,
-	  precio int(64) NOT NULL,
-    descripcion varchar (256) NOT NULL,
-    unidades_disponibles int (8) DEFAULT 0,
-    marca varchar (8) NOT NULL,
-    modelo varchar (8) NOT NULL
+  CREATE TABLE productos (
+    codigo					INT				IDENTITY(1,1) NOT NULL,
+    nombre 					VARCHAR (20)	NOT NULL,
+	precio 					INT				NOT NULL,
+    descripcion 			VARCHAR (256)	NOT NULL,
+    unidades_disponibles 	INT				NOT NULL,
+    marca 					VARCHAR (8) 	NOT NULL,
+    modelo 					VARCHAR (8) 	NOT NULL
+	
+	PRIMARY KEY (codigo)
     );
 
-  CREATE TABLE IF NOT EXISTS clientes (
-    dni_cuit int(10) NOT NULL PRIMARY KEY,
-    nombre varchar(20)  NOT NULL,
-    apellido varchar (20) NOT NULL,
-    direccion varchar (64) NOT NULL,
-    email varchar (64),
-    telefono varchar (64),
-    particular TINYINT (3)
+  CREATE TABLE clientes (
+    dni_cuit 				INT				NOT NULL,
+    nombre 					varchar(20)  	NOT NULL,
+    apellido 				varchar (20) 	NOT NULL,
+    direccion 				varchar (64)	NOT NULL,
+    email 					varchar (64)	NOT NULL,
+    telefono 				varchar (64)	NOT NULL,
+    particular 				BIT				NOT NULL DEFAULT 0
+	
+	PRIMARY KEY (dni_cuit)
   );
   
-  CREATE TABLE IF NOT EXISTS envios(
-    id int(64) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	estado varchar(20)  NOT NULL
+  CREATE TABLE envios(
+    id_envio				INT				IDENTITY(1,1) NOT NULL,
+	estado 					varchar(20)  	NOT NULL
+	
+	PRIMARY KEY(id_envio)
   );
   
-  CREATE TABLE IF NOT EXISTS reclamos(
-    id INT(8) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    descripcion varchar (64),
-    estado varchar (64)
+  CREATE TABLE reclamos(
+    id_reclamo				INT				IDENTITY(1,1) NOT NULL,
+    descripcion 			varchar (64),
+    estado 					varchar (64)
+	
+	PRIMARY KEY (id_reclamo)
   );
 
-  CREATE TABLE IF NOT EXISTS ventas (
-   id INT(8) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-   fecha DATETIME NOT NULL,
-   total FLOAT NOT NULL DEFAULT 0,
-   cliente_dni_cuit INT (10) NOT NULL,
-   usuario_dni INT (8) NOT NULL,
-   descuento float(2) NOT NULL,
-   envio_id int(64),
-   reclamo_id int(64),
+  CREATE TABLE ventas (
+   id_venta					INT				IDENTITY(1,1) NOT NULL,
+   fecha 					DATETIME 		NOT NULL,
+   total 					FLOAT 			NOT NULL DEFAULT 0,
+   cliente_dni_cuit 		INT 			NOT NULL,
+   usuario_dni 				INT 			NOT NULL,
+   descuento 				FLOAT 			NOT NULL,
+   envio_id 				INT 			NULL,
+   reclamo_id 				INT 			NULL
+   
+   PRIMARY KEY (id_venta)
    FOREIGN KEY (cliente_dni_cuit) REFERENCES clientes (dni_cuit),
    FOREIGN KEY (usuario_dni) REFERENCES usuarios (dni),
-   FOREIGN KEY (envio_id) REFERENCES envios (id),
-   FOREIGN KEY (reclamo_id) REFERENCES reclamos (id)
+   FOREIGN KEY (envio_id) REFERENCES envios (id_envio),
+   FOREIGN KEY (reclamo_id) REFERENCES reclamos (id_reclamo)
   );
 
-  CREATE TABLE IF NOT EXISTS item_venta(
-    venta_id int not null,
-    producto_codigo int not null,
-    producto_cantidad int not null,
-    precio_unidad int not null,
-    FOREIGN KEY (venta_id) REFERENCES ventas (id),
-    FOREIGN KEY (producto_codigo) REFERENCES productos (codigo),
-    PRIMARY KEY (venta_id, producto_codigo)
+  CREATE TABLE item_venta(
+    venta_id 				INT 			NOT NULL,
+    producto_codigo 		INT 			NOT NULL,
+    producto_cantidad 		INT 			NOT NULL,
+    precio_unidad 			INT 			NOT NULL,
+	
+	PRIMARY KEY (venta_id, producto_codigo),
+    FOREIGN KEY (venta_id) REFERENCES ventas (id_venta),
+    FOREIGN KEY (producto_codigo) REFERENCES productos (codigo)
   );
   
-    
