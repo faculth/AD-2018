@@ -32,6 +32,24 @@ public class test {
 		//registrarEnvio(); //ok
 		//modificarEnvio(); //ok
 		//ingresarSistema(); ESTO LO TENDRIA QUE PROTOTIPAR MARIANO
+		listarVentas();//mati
+		listarEnvios();//mati
+		generarReporteVenta();//mati
+	}
+
+	private static void generarReporteVenta() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void listarEnvios() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void listarVentas() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	private static void modificarEnvio() {
