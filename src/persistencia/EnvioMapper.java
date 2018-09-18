@@ -1,21 +1,24 @@
 package persistencia;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-
-import db.DbConnection;
+import db.PoolConnection;
 import modelo.Envio;
 import modelo.Venta;
 
 public class EnvioMapper {
 	
 	private static EnvioMapper instancia;
+	private static Connection con;
 	
 	public static EnvioMapper getInstancia(){
 		if(instancia == null){
 			instancia = new EnvioMapper();
 		}
+		con = PoolConnection.getInstance().getConnection();
 		return instancia;
 	}
 	
@@ -23,12 +26,12 @@ public class EnvioMapper {
 		Envio recuperado = null;
 		ResultSet resultado = null;
 		try {
-			DbConnection conexion = new DbConnection();
-			resultado = (ResultSet) conexion.getResults("SELECT * FROM ENVIOS WHERE id = " + String.valueOf(numEnvio));
+			PreparedStatement s = con.prepareStatement("SELECT * FROM envios WHERE id_envio = ?");
+			resultado = s.executeQuery();
 			if(resultado.next()){
 				recuperado = new Envio();
-				recuperado.setNumEnvio(resultado.getInt("id"));
-				recuperado.setEstado(resultado.getString("estado"));
+				recuperado.setNumEnvio(resultado.getInt(1));
+				recuperado.setEstado(resultado.getString(2));
 			}
 		} catch (Exception e) {
 			System.out.println(e);
@@ -41,12 +44,11 @@ public class EnvioMapper {
 		Envio env = null;
 		ResultSet resultado = null;
 		try {
-			DbConnection conexion = new DbConnection();
-			resultado = (ResultSet) conexion.getResults("SELECT * FROM ENVIOS");
+			PreparedStatement s = con.prepareStatement("SELECT * FROM envios");
 			while(resultado.next()){
 				env = new Envio();
-				env.setNumEnvio(resultado.getInt("id"));
-				env.setEstado(resultado.getString("estado"));
+				env.setNumEnvio(resultado.getInt(1));
+				env.setEstado(resultado.getString(2));
 				envios.add(env);
 			}
 		} catch (Exception e) {
@@ -57,9 +59,9 @@ public class EnvioMapper {
 
 	public void save(Envio env){
 		try {
-			String query = "INSERT INTO envios(estado) VALUES('"+ env.getEstado() +"')";
-			DbConnection conexion = new DbConnection();
-			conexion.execute(query);
+			PreparedStatement s = con.prepareStatement("INSERT INTO envios(estado) VALUES(?)");
+			s.setString(1, env.getEstado());
+			s.execute();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -67,9 +69,10 @@ public class EnvioMapper {
 	
 	public void update(Envio v){
 		try {
-			String query = "UPDATE envios SET estado= '"+ v.getEstado() +"' WHERE id = "+v.getNumEnvio();
-			DbConnection conexion = new DbConnection();
-			conexion.execute(query);
+			PreparedStatement s = con.prepareStatement("UPDATE envios SET estado = '?' where id_envio = ?");
+			s.setString(1, v.getEstado());
+			s.setInt(2, v.getNumEnvio());
+			s.execute();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -79,10 +82,9 @@ public class EnvioMapper {
 		int ultimoId = 0;
 		ResultSet resultado = null;
 		try {
-			DbConnection conexion = new DbConnection();
-			resultado = (ResultSet) conexion.getResults("SELECT id FROM envios ORDER BY id DESC LIMIT 1");
+			PreparedStatement s = con.prepareStatement("UPDATE TOP 1 id_envio ORDER BY id_envio DESC");
 			if(resultado.next()){
-				ultimoId = resultado.getInt("id");
+				ultimoId = resultado.getInt(1);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

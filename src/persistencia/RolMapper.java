@@ -1,20 +1,23 @@
 package persistencia;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-
-import db.DbConnection;
+import db.PoolConnection;
 import modelo.Rol;
 
 public class RolMapper {
 	
 	private static RolMapper instancia;
+	private static Connection con;
 	
 	public static RolMapper getInstancia(){
 		if(instancia == null){
 			instancia = new RolMapper();
 		}
+		con = PoolConnection.getInstance().getConnection();
 		return instancia;
 	}
 
@@ -22,12 +25,12 @@ public class RolMapper {
 		Rol recuperado = null;
 		ResultSet resultado = null;
 		try {
-			DbConnection conexion = new DbConnection();
-			resultado = (ResultSet) conexion.getResults("SELECT * FROM ROLES WHERE id = " + String.valueOf(idRol));
+			PreparedStatement s = con.prepareStatement("SELECT * FROM roles WHERE id = ?");
+			resultado = s.executeQuery();
 			if(resultado.next()){
 				recuperado = new Rol();
-				recuperado.setIdRol(resultado.getInt("id"));
-				recuperado.setNombre(resultado.getString("nombre"));
+				recuperado.setIdRol(resultado.getInt(1));
+				recuperado.setNombre(resultado.getString(2));
 			}
 		} catch (Exception e) {
 			System.out.println(e);
@@ -40,12 +43,12 @@ public class RolMapper {
 		Rol rol = null;
 		ResultSet resultado = null;
 		try {
-			DbConnection conexion = new DbConnection();
-			resultado = (ResultSet) conexion.getResults("SELECT * FROM ROLES");
+			PreparedStatement s = con.prepareStatement("SELECT * FROM roles");
+			resultado = s.executeQuery();
 			while(resultado.next()){
 				rol = new Rol();
-				rol.setIdRol(resultado.getInt("id"));
-				rol.setNombre(resultado.getString("nombre"));
+				rol.setIdRol(resultado.getInt(1));
+				rol.setNombre(resultado.getString(2));
 				roles.add(rol);
 			}
 		} catch (Exception e) {

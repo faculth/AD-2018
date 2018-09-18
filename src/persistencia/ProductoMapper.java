@@ -44,21 +44,22 @@ public class ProductoMapper {
 	
 	public List<Producto> getAll(){
 		List <Producto> productos = new ArrayList<Producto>();
-		Producto prod = null;
+		Producto recuperado = null;
 		ResultSet resultado = null;
 		try {
-			DbConnection conexion = new DbConnection();
-			resultado = (ResultSet) conexion.getResults("SELECT * FROM PRODUCTOS");
+			PreparedStatement s = con.prepareStatement("SELECT * FROM PRODUCTOS");
+			resultado = s.executeQuery();
 			while(resultado.next()){
-				prod = new Producto();
-				prod.setCodigoProducto(resultado.getInt("codigo"));
-				prod.setNombre(resultado.getString("nombre"));
-				prod.setDescripcion(resultado.getString("descripcion"));
-				prod.setMarca(resultado.getString("marca"));
-				prod.setModelo(resultado.getString("modelo"));
-				prod.setPiezas_disp(resultado.getInt("unidades_disponibles"));
-				prod.setPrecio(resultado.getInt("precio"));
-				productos.add(prod);
+				recuperado = new Producto();
+				recuperado = new Producto();
+				recuperado.setCodigoProducto(resultado.getInt(1));
+				recuperado.setNombre(resultado.getString(2));
+				recuperado.setPrecio(resultado.getInt(3));
+				recuperado.setDescripcion(resultado.getString(4));
+				recuperado.setPiezas_disp(resultado.getInt(5));
+				recuperado.setMarca(resultado.getString(6));
+				recuperado.setModelo(resultado.getString(7));
+				productos.add(recuperado);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -68,11 +69,15 @@ public class ProductoMapper {
 
 	public void update(Producto producto) {
 		try {
-			DbConnection conexion = new DbConnection();
-			String query = "UPDATE productos SET nombre= '"+ producto.getNombre() +"', precio= "+ producto.getPrecio() +", "
-					+ "descripcion = '"+ producto.getDescripcion() +"', unidades_disponibles = "+ producto.getPiezas_disp() +","
-							+ " marca = '"+ producto.getMarca() +"', modelo='"+ producto.getModelo() +"' WHERE codigo = "+ producto.getCodigoProducto();
-			conexion.execute(query);
+			PreparedStatement s = con.prepareStatement("UPDATE productos SET nombre = ?, precio = ?, descripcion = ?, unidades_disponibles = ?, marca = ?, modelo = ? WHERE codigo = ?");
+			s.setString(1, producto.getNombre());
+			s.setFloat(2, producto.getPrecio());
+			s.setString(3, producto.getDescripcion());
+			s.setInt(4, producto.getPiezas_disp());
+			s.setString(5, producto.getMarca());
+			s.setString(6, producto.getModelo());
+			s.setInt(7, producto.getCodigoProducto());
+			s.execute();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

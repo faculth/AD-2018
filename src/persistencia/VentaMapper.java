@@ -2,49 +2,51 @@ package persistencia;
 
 
 
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
-
-import db.DbConnection;
+import db.PoolConnection;
 import modelo.Venta;
 
 public class VentaMapper {
 	private static VentaMapper instancia;
+	private static Connection con;
 	
 	public static VentaMapper getInstancia(){
 		if(instancia == null){
 			instancia = new VentaMapper();
 		}
+		con = PoolConnection.getInstance().getConnection();
 		return instancia;
 	}
 	
 	public Venta getVentaById(int idVenta){
 		Venta recuperada = null;
 		ResultSet resultado = null;
-		
 		try {
-			DbConnection conexion = new DbConnection();
-			resultado = (ResultSet) conexion.getResults("SELECT * FROM ventas WHERE id = " + String.valueOf(idVenta));
+			PreparedStatement s = con.prepareStatement("SELECT * FROM ventas WHERE id_venta = ?");
+			resultado = s.executeQuery();
 			if(resultado.next()){
 				recuperada = new Venta();
-				recuperada.setNumeroVenta(resultado.getInt("id"));
-				recuperada.setTotal(resultado.getFloat("total"));
-				recuperada.setFechaVenta(resultado.getDate("fecha"));
-				recuperada.setUsuario(UsuarioMapper.getInstancia().getUsrById(resultado.getInt("usuario_dni")));
+				recuperada.setNumeroVenta(resultado.getInt(1));
+				recuperada.setFechaVenta(resultado.getDate(2));
+				recuperada.setTotal(resultado.getFloat(3));
+				recuperada.setCliente(ClienteMapper.getInstancia().getClienteById(resultado.getInt(4)));
+				recuperada.setUsuario(UsuarioMapper.getInstancia().getUsrById(resultado.getInt(5)));
 				recuperada.setItems(ItemVentaMapper.getInstancia().recuperarItemsVenta(idVenta));
-				recuperada.setCliente(ClienteMapper.getInstancia().getClienteById(resultado.getInt("cliente_dni_cuit")));
-				recuperada.setDescuento(resultado.getInt("descuento"));
+				recuperada.setDescuento(resultado.getInt(6));
 				if(resultado.getInt("envio_id") > 0){
-					recuperada.setEnvio(EnvioMapper.getInstancia().getEnvioById(resultado.getInt("envio_id")));
+					recuperada.setEnvio(EnvioMapper.getInstancia().getEnvioById(resultado.getInt(7)));
 				}
 				if(resultado.getInt("reclamo_id") > 0){
-					recuperada.setReclamo(ReclamoMapper.getInstancia().getReclamoById(resultado.getInt("reclamo_id")));
+					recuperada.setReclamo(ReclamoMapper.getInstancia().getReclamoById(resultado.getInt(8)));
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		return recuperada;
 	}
 	
@@ -52,10 +54,10 @@ public class VentaMapper {
 		int ultimoId = 0;
 		ResultSet resultado = null;
 		try {
-			DbConnection conexion = new DbConnection();
-			resultado = conexion.getResults("select id from ventas order by id desc Limit 1");
+			PreparedStatement s = con.prepareStatement("SELECT top 1 id_venta FROM ventas ORDER BY id_venta DESC");
+			resultado = s.executeQuery();
 			if(resultado.next()){
-				ultimoId = 1 + resultado.getInt("id");
+				ultimoId = resultado.getInt(1);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -65,62 +67,45 @@ public class VentaMapper {
 
 	public int insert(Venta v) {
 		try {
-			DbConnection conexion = new DbConnection();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			
-			String strReclamo;
-			if(v.getReclamo() != null){
-				int reclamoId = v.getReclamo().getNumeroReclamo();
-				strReclamo = "'"+String.valueOf(reclamoId)+"'";
-			}else {
-				strReclamo = null;
-			}
-			String strEnvio;
+			PreparedStatement s = con.prepareStatement("INSERT INTO ventas (fecha,total,cliente_dni_cuit,usuario_dni,descuento,envio_id,reclamo_id) values (?,"
+					+ "?,?,?,?,?,?)");
+			s.setDate(1, (Date) v.getFechaVenta());
+			s.setFloat(2, v.getTotal());
+			s.setInt(3, v.getCliente().getDni());
+			s.setInt(4, v.getUsuario().getDni());
+			s.setFloat(5, v.getDescuento());
 			if(v.getEnvio() != null){
-				int envioId = v.getEnvio().getNumEnvio();
-				strEnvio = "'"+String.valueOf(envioId)+"'";
-			}else {
-				strEnvio = null;
+				s.setInt(6, v.getEnvio().getNumEnvio());
 			}
-			
-			String query = "INSERT INTO ventas(fecha, total, cliente_dni_cuit, usuario_dni, descuento, envio_id, reclamo_id) VALUES('"+ sdf.format(v.getFechaVenta()) +"', "
-					+ ""+ v.getTotal() +", "+ v.getCliente().getDni() +", "
-							+ ""+ v.getUsuario().getDni() +", "+ v.getDescuento() +", "+ strEnvio +", reclamo_id ="+ strReclamo +")";
-			return conexion.execute(query);
-
+			if(v.getReclamo() != null){
+				s.setInt(7, v.getReclamo().getNumeroReclamo());
+			}
+			s.execute();
 		} catch (Exception e) {
 			e.printStackTrace();
-			return -1;
 		}
+		return VentaMapper.getInstancia().obtenerUltimoId();
 	}
 	
 
 	public void update(Venta v) {
 		try {
-			DbConnection conexion = new DbConnection();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			
-
-			String strReclamo;
-			if(v.getReclamo() != null){
-				int reclamoId = v.getReclamo().getNumeroReclamo();
-				strReclamo = "'"+String.valueOf(reclamoId)+"'";
-			}else {
-				strReclamo = null;
-			}
-			String strEnvio;
+			PreparedStatement s = con.prepareStatement("UPDATE ventas set fecha = ?, total = ?, cliente_dni_cuit = ?,usuario_dni = ?,descuento = ?,envido_id = ?, reclamo_id = ? where id_venta = ?");
+			s.setDate(1, (Date) v.getFechaVenta());
+			s.setFloat(2, v.getTotal());
+			s.setInt(3, v.getCliente().getDni());
+			s.setInt(4, v.getUsuario().getDni());
+			s.setFloat(5, v.getDescuento());
 			if(v.getEnvio() != null){
-				int envioId = v.getEnvio().getNumEnvio();
-				strEnvio = "'"+String.valueOf(envioId)+"'";
-			}else {
-				strEnvio = null;
+				s.setInt(6, v.getEnvio().getNumEnvio());
 			}
-
-			String query = "UPDATE ventas SET fecha = '"+ sdf.format(v.getFechaVenta()) +"', total = "+ v.getTotal() +", "
-					+ "cliente_dni_cuit = '"+ v.getCliente().getDni() +"', usuario_dni = "+ v.getUsuario().getDni() +","
-							+ " descuento = '"+ v.getDescuento() +"', envio_id ="+ strEnvio +", reclamo_id =" + strReclamo 
-							+" WHERE id = "+ v.getNumeroVenta();
-			conexion.execute(query);
+			if(v.getReclamo() != null){
+				s.setInt(7, v.getReclamo().getNumeroReclamo());
+			}
+			s.setInt(8, v.getNumeroVenta());
+			s.execute();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

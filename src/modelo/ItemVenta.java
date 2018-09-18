@@ -4,7 +4,7 @@ public class ItemVenta {
 	private int codItemVenta;
 	private Producto producto;
 	private int cantidad;
-	private int precioUnit;
+	private float precioUnit;
 	
 	public ItemVenta(){}
 
@@ -32,15 +32,15 @@ public class ItemVenta {
 		this.cantidad = cantidad;
 	}
 
-	public int calcularSubtotal() {
+	public float calcularSubtotal() {
 		return this.cantidad*this.precioUnit;
 	}
 
-	public int getPrecioUnit() {
+	public float getPrecioUnit() {
 		return precioUnit;
 	}
 
-	public void setPrecioUnit(int precioUnit) {
+	public void setPrecioUnit(float precioUnit) {
 		this.precioUnit = precioUnit;
 	}
 	
