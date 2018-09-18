@@ -1,18 +1,20 @@
 package persistencia;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
-import db.DbConnection;
-import modelo.Rol;
+import db.PoolConnection;
 import modelo.Usuario;
 
 public class UsuarioMapper {
 	private static UsuarioMapper instancia;
+	private static Connection con;
 	
 	public static UsuarioMapper getInstancia(){
 		if(instancia == null){
 			instancia = new UsuarioMapper();
 		}
+		con = PoolConnection.getInstance().getConnection();
 		return instancia;
 	}
 
@@ -20,16 +22,15 @@ public class UsuarioMapper {
 		Usuario recuperado = null;
 		ResultSet resultado = null;
 		try {
-			DbConnection conexion = new DbConnection();
-			resultado = (ResultSet) conexion.getResults("SELECT * FROM USUARIOS WHERE dni = " + String.valueOf(idUsr));
+			PreparedStatement s = con.prepareStatement("SELECT * FROM usuarios WHERE dni = ?");
+			resultado = s.executeQuery();
 			if(resultado.next()){
 				recuperado = new Usuario();
-				recuperado.setDni(resultado.getInt("dni"));
-				recuperado.setNombre(resultado.getString("nombre"));
-				recuperado.setPassword(resultado.getString("password"));
-				recuperado.setActivo(resultado.getBoolean("activo"));
-				Rol rolUsr = RolMapper.getInstancia().getRolById(resultado.getInt("rol_id"));
-				recuperado.setRol(rolUsr);
+				recuperado.setDni(idUsr);
+				recuperado.setNombre(resultado.getString(2));
+				recuperado.setRol(RolMapper.getInstancia().getRolById(resultado.getInt(3)));
+				recuperado.setPassword(resultado.getString(4));
+				recuperado.setActivo(resultado.getBoolean(5));
 			}
 		} catch (Exception e) {
 			System.out.println(e);

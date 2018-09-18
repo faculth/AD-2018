@@ -1,19 +1,22 @@
 package persistencia;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-
-import db.DbConnection;
+import db.PoolConnection;
 import modelo.Producto;
 
 public class ProductoMapper {
-private static ProductoMapper instancia;
+	private static ProductoMapper instancia;
+	private static Connection con;
 	
 	public static ProductoMapper getInstancia(){
 		if(instancia == null){
 			instancia = new ProductoMapper();
 		}
+		con = PoolConnection.getInstance().getConnection();
 		return instancia;
 	}
 	
@@ -21,17 +24,17 @@ private static ProductoMapper instancia;
 		Producto recuperado = null;
 		ResultSet resultado = null;
 		try {
-			DbConnection conexion = new DbConnection();
-			resultado = conexion.getResults("SELECT * FROM PRODUCTOS WHERE codigo = " + String.valueOf(codigoProducto));
+			PreparedStatement s = con.prepareStatement("SELECT * FROM PRODUCTOS WHERE codigo =  ?");
+			resultado = s.executeQuery();
 			if(resultado.next()){
 				recuperado = new Producto();
-				recuperado.setCodigoProducto(codigoProducto);
-				recuperado.setNombre(resultado.getString("nombre"));
-				recuperado.setDescripcion(resultado.getString("descripcion"));
-				recuperado.setMarca(resultado.getString("marca"));
-				recuperado.setModelo(resultado.getString("modelo"));
-				recuperado.setPiezas_disp(resultado.getInt("unidades_disponibles"));
-				recuperado.setPrecio(resultado.getInt("precio"));
+				recuperado.setCodigoProducto(resultado.getInt(1));
+				recuperado.setNombre(resultado.getString(2));
+				recuperado.setPrecio(resultado.getInt(3));
+				recuperado.setDescripcion(resultado.getString(4));
+				recuperado.setPiezas_disp(resultado.getInt(5));
+				recuperado.setMarca(resultado.getString(6));
+				recuperado.setModelo(resultado.getString(7));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

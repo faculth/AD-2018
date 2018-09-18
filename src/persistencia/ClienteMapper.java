@@ -43,29 +43,30 @@ public class ClienteMapper {
 		}
 		return recuperado;
 	}
-/*	
+	
 	public List<Cliente> getAll(){
 		List <Cliente> clientes = new ArrayList<Cliente>();
 		Cliente cli = null;
 		ResultSet resultado = null;
 		try {
-			//DbConnection conexion = new DbConnection();
-			resultado = (ResultSet) conexion.getResults("SELECT * FROM CLIENTES");
+			PreparedStatement s = con.prepareStatement("SELECT * FROM CLIENTES");
+			resultado = s.getResultSet();
 			while(resultado.next()){
 				cli = new Cliente();
-				cli.setDni(resultado.getInt("dni_cuit"));
-				cli.setNombre(resultado.getString("nombre"));
-				cli.setApellido(resultado.getString("apellido"));
-				cli.setEmail(resultado.getString("email"));
-				cli.setTelefono(resultado.getString("telefono"));
-				cli.setTipoCliente(resultado.getString("particular"));
+				cli.setDni(resultado.getInt(1));
+				cli.setNombre(resultado.getString(2));
+				cli.setApellido(resultado.getString(3));
+				cli.setDomicilio(resultado.getString(4));
+				cli.setEmail(resultado.getString(5));
+				cli.setTelefono(resultado.getString(6));
+				cli.setTipoCliente(esParticular(resultado.getBoolean(7)));
 				clientes.add(cli);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return clientes;
-	}*/
+	}
 	
 	private String esParticular(boolean valor){
 		if(valor == true)
