@@ -22,7 +22,7 @@ public class ClienteServicio {
 	
 	public List<Cliente> obtenerClientes(){
 		List <Cliente> clientes = null;
-		clientes = ClienteMapper.getInstancia().getAll();
+		//clientes = ClienteMapper.getInstancia().getAll();
 		return clientes;
 	}
 }

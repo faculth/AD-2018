@@ -22,19 +22,19 @@ import servicios.VentaServicio;
 public class test {
 
 	public static void main(String[] args) throws ParseException {
-		//buscarCliente(); //ok
+		buscarCliente(); //ok
 		//buscarProducto(); //ok
 		//actualizarStock(); //ok
 		/*NOTA: NO VERIFICO EL STOCK CUANDO GENERO LA VENTA, YA QUE QUE SUPUESTAMENTE A 
 		LA HORA DE APRETAR EL BOTON PARA AGREGAR EL PRODUCTO SE VERIFICA, Y SI NO TIENE NO TE LO DEJARIA AGREGAR A LA VENTA*/
-		generarVenta(); //ok
+		//generarVenta(); //ok
 		//buscarVenta(); //ok
 		//registrarEnvio(); //ok
 		//modificarEnvio(); //ok
 		//ingresarSistema(); ESTO LO TENDRIA QUE PROTOTIPAR MARIANO
-		listarVentas();//mati
-		listarEnvios();//mati
-		generarReporteVenta();//mati
+		//listarVentas();//mati
+		//listarEnvios();//mati
+		//generarReporteVenta();//mati
 	}
 
 	private static void generarReporteVenta() {
@@ -128,8 +128,7 @@ public class test {
 
 	private static void buscarCliente() {
 		Cliente c = ClienteServicio.getInstancia().buscarCliente(39155848);
-		System.out.print(c.getNombre());
-		
+		System.out.print(c.getNombre());		
 	}
 
 }

@@ -1,0 +1,13 @@
+#jdbc=jdbc:sqlserver://
+#servidor=localhost:1433;database=API
+#usuario=usr_db
+#password=123456789
+#conexiones=5
+
+jdbc=jdbc:sqlserver://
+servidor=localhost:1433;database=SIPI
+usuario=sa
+password=123456.a
+conexiones=1
+
+
