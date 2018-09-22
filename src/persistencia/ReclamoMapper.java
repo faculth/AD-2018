@@ -27,6 +27,7 @@ public class ReclamoMapper {
 		ResultSet resultado = null;
 		try {
 			PreparedStatement s = con.prepareStatement("SELECT * FROM RECLAMOS WHERE id_reclamo = ");
+			s.setInt(1,idReclamo);
 			resultado = s.executeQuery();
 			if(resultado.next()){
 				recuperado = new Reclamo();

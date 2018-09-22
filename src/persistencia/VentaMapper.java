@@ -27,6 +27,7 @@ public class VentaMapper {
 		ResultSet resultado = null;
 		try {
 			PreparedStatement s = con.prepareStatement("SELECT * FROM ventas WHERE id_venta = ?");
+			s.setInt(1, idVenta);
 			resultado = s.executeQuery();
 			if(resultado.next()){
 				recuperada = new Venta();

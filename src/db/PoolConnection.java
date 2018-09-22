@@ -110,7 +110,6 @@ public class PoolConnection
 		else
 		{
 			c = connect();
-			System.out.println("Se ha creado una nueva conexion fuera de los parametros de configuracion");
 		}
 		return c;
 	}

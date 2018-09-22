@@ -52,6 +52,8 @@ public class ItemVentaMapper {
 		ItemVenta item = null;
 		try {
 			PreparedStatement s = con.prepareStatement("SELECT * FROM item_venta WHERE venta_id =  ?");
+			s.setInt(1, idVenta);
+			resultado = s.executeQuery();
 			while(resultado.next()){
 				item = new ItemVenta();
 				item.setCodItemVenta(idVenta);
