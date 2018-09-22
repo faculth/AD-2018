@@ -27,6 +27,7 @@ public class EnvioMapper {
 		ResultSet resultado = null;
 		try {
 			PreparedStatement s = con.prepareStatement("SELECT * FROM envios WHERE id_envio = ?");
+			s.setInt(1, numEnvio);
 			resultado = s.executeQuery();
 			if(resultado.next()){
 				recuperado = new Envio();

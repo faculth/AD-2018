@@ -25,6 +25,7 @@ public class ProductoMapper {
 		ResultSet resultado = null;
 		try {
 			PreparedStatement s = con.prepareStatement("SELECT * FROM PRODUCTOS WHERE codigo =  ?");
+			s.setInt(1, codigoProducto);
 			resultado = s.executeQuery();
 			if(resultado.next()){
 				recuperado = new Producto();

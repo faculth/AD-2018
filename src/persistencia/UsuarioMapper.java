@@ -23,6 +23,7 @@ public class UsuarioMapper {
 		ResultSet resultado = null;
 		try {
 			PreparedStatement s = con.prepareStatement("SELECT * FROM usuarios WHERE dni = ?");
+			s.setInt(1, idUsr);
 			resultado = s.executeQuery();
 			if(resultado.next()){
 				recuperado = new Usuario();

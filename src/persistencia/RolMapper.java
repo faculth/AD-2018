@@ -26,10 +26,11 @@ public class RolMapper {
 		ResultSet resultado = null;
 		try {
 			PreparedStatement s = con.prepareStatement("SELECT * FROM roles WHERE id = ?");
+			s.setInt(1, idRol);
 			resultado = s.executeQuery();
 			if(resultado.next()){
 				recuperado = new Rol();
-				recuperado.setIdRol(resultado.getInt(1));
+				recuperado.setIdRol(idRol);
 				recuperado.setNombre(resultado.getString(2));
 			}
 		} catch (Exception e) {

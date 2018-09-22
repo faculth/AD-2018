@@ -75,9 +75,9 @@ public class test {
 		Venta ventaNueva = new Venta();
 		
 		//TRAIGO AL USUARIO
-		Usuario u = UsuarioServicio.getInstancia().buscarUsuario(1);
+		Usuario u = UsuarioServicio.getInstancia().buscarUsuario(39155848);
 		//TRAIGO EL CLIENTE
-		Cliente c = ClienteServicio.getInstancia().buscarCliente(32568788);
+		Cliente c = ClienteServicio.getInstancia().buscarCliente(30155849);
 		
 		//TRAIGO LOS PRODUCTOS
 		Producto p1 = ProductoServicio.getInstancia().buscarProducto(1);
@@ -90,13 +90,13 @@ public class test {
 		ItemVenta i2 = new ItemVenta();
 		ItemVenta i3 = new ItemVenta();
 		i1.setProducto(p1);
-		i1.setCantidad(1);
+		i1.setCantidad(2);
 		i1.setPrecioUnit(p1.getPrecio());
 		i2.setProducto(p2);
-		i2.setCantidad(2);
+		i2.setCantidad(1);
 		i2.setPrecioUnit(p2.getPrecio());
 		i3.setProducto(p3);
-		i3.setCantidad(2);
+		i3.setCantidad(3);
 		i3.setPrecioUnit(p3.getPrecio());
 		
 		items.add(i1);
