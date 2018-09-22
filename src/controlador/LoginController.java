@@ -3,6 +3,9 @@ package controlador;
 import vista.Login;
 import vista.UserForm;
 import Launcher.Launcher;
+import modelo.Usuario;
+import servicios.UsuarioServicio;
+
 import javax.swing.*;
 
 
@@ -13,7 +16,8 @@ public class LoginController implements IController {
     private UserForm userForm;
     private JPanel currentView;
     private Launcher main;
-
+    private Usuario usuarioLogueado;
+    
     public LoginController(JFrame frame) {
         this.frame = frame;
         login = new Login();
@@ -64,8 +68,9 @@ public class LoginController implements IController {
         return true;
     }
 
-    public void doLogin(String s, String s1) {
-        System.out.println("doLogin");
+    public void doLogin(String s) {
+    	Usuario u = UsuarioServicio.getInstancia().buscarUsuario(Integer.parseInt(s));
+    	setUser(u);
         main.onUserLogin();
     }
     
@@ -73,4 +78,8 @@ public class LoginController implements IController {
         System.out.println("doExit");
         main.exit();
     }
+    
+	private void setUser(Usuario user){
+		this.usuarioLogueado = user;
+	}
 }

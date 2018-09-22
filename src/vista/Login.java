@@ -1,6 +1,7 @@
 package vista;
 
 import controlador.LoginController;
+import servicios.UsuarioServicio;
 
 import javax.swing.*;
 import java.awt.*;
@@ -63,39 +64,44 @@ public class Login extends JPanel implements ActionListener {
 	}
 
 	public String[] getLoginContent() {
-	    String[] loginContent = {userField.getText(), passwordField.getText()};
+		char[] arrayC = passwordField.getPassword(); 
+		String pass = new String(arrayC); 
+	    String[] loginContent = {userField.getText(),pass};
         return loginContent;
     }
 
 
 	public void showEmptyFieldLabel() {
-        Label emptyField = new Label("User or Password cannot be empty");
-        emptyField.setBounds(109, 120, 250, 15);
+        Label emptyField = new Label("Usuario o password vacios");
+        emptyField.setBounds(130, 162, 250, 15);
         add(emptyField);
     }
 
     public void showWrongUserOrPassword() {
-        Label emptyField = new Label("User or Password does not match");
-        emptyField.setBounds(109, 120, 250, 15);
+        Label emptyField = new Label("El usuario no existe o la password es incorrecta");
+        emptyField.setBounds(130, 162, 250, 15);
         add(emptyField);
     }
 
 	public void showLoginError() {
 		Label emptyField = new Label("Couldn't login: check email or password");
-		emptyField.setBounds(109, 120, 250, 15);
+		emptyField.setBounds(130, 162, 250, 15);
 		add(emptyField);
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		switch (e.getActionCommand()) {
 			case "Aceptar":
-				/*String[] loginInfo = this.getLoginContent();
+				String[] loginInfo = this.getLoginContent();
 				if (loginInfo[0].isEmpty() || loginInfo[1].isEmpty()) {
 					this.showEmptyFieldLabel();
-				} else  {
-					this.loginController.doLogin(loginInfo[0], loginInfo[1]);
-				}*/
-				this.loginController.doLogin("s", "s");
+				} 
+				else if(validarUser(loginInfo) == 0 || validarUser(loginInfo) == -1){
+					this.showWrongUserOrPassword();
+				}
+				else  {
+					this.loginController.doLogin(loginInfo[0]);
+				}
 				break;
 			case "Cancelar":
 				this.loginController.doExit();
@@ -107,5 +113,8 @@ public class Login extends JPanel implements ActionListener {
 				break;
 		}
 	}
-	
+
+	private int validarUser(String[] loginInfo) {
+		return UsuarioServicio.getInstancia().validarUser(loginInfo);
+	}
 }

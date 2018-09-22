@@ -17,6 +17,11 @@ public class UsuarioServicio {
 		Usuario u = UsuarioMapper.getInstancia().getUsrById(id);
 		return u;
 	}
+
+	public int validarUser(String[] loginInfo) {
+		int existe = UsuarioMapper.getInstancia().usuarioValido(loginInfo);
+		return existe;
+	}
 	
 	
 }

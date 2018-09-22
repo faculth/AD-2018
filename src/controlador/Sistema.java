@@ -1,5 +1,6 @@
 package controlador;
 import Launcher.Launcher;
+import modelo.Usuario;
 import vista.*;
 
 import javax.swing.*;
@@ -13,7 +14,7 @@ public class Sistema implements  IController{
 	private JFrame frame;
 	private Launcher main;
 	private UserDashboard userDashboard;
-
+	
 	public Sistema(JFrame frame) {
 		this.frame	= frame;
 		userDashboard = new UserDashboard();
@@ -43,5 +44,4 @@ public class Sistema implements  IController{
 	public void  showCard(String cardName) {
 		userDashboard.showPanel(cardName);
 	}
-
 }
