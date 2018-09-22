@@ -33,7 +33,7 @@ public class ProductoMapper {
 				recuperado.setNombre(resultado.getString(2));
 				recuperado.setPrecio(resultado.getInt(3));
 				recuperado.setDescripcion(resultado.getString(4));
-				recuperado.setPiezas_disp(resultado.getInt(5));
+				recuperado.setStock(resultado.getInt(5));
 				recuperado.setMarca(resultado.getString(6));
 				recuperado.setModelo(resultado.getString(7));
 			}
@@ -57,7 +57,7 @@ public class ProductoMapper {
 				recuperado.setNombre(resultado.getString(2));
 				recuperado.setPrecio(resultado.getInt(3));
 				recuperado.setDescripcion(resultado.getString(4));
-				recuperado.setPiezas_disp(resultado.getInt(5));
+				recuperado.setStock(resultado.getInt(5));
 				recuperado.setMarca(resultado.getString(6));
 				recuperado.setModelo(resultado.getString(7));
 				productos.add(recuperado);
@@ -74,7 +74,7 @@ public class ProductoMapper {
 			s.setString(1, producto.getNombre());
 			s.setFloat(2, producto.getPrecio());
 			s.setString(3, producto.getDescripcion());
-			s.setInt(4, producto.getPiezas_disp());
+			s.setInt(4, producto.getStock());
 			s.setString(5, producto.getMarca());
 			s.setString(6, producto.getModelo());
 			s.setInt(7, producto.getCodigoProducto());

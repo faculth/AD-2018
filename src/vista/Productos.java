@@ -1,8 +1,13 @@
 package vista;
 
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
+
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+import modelo.Producto;
+import servicios.ProductoServicio;
 
 public class Productos extends ItemPanel {
 
@@ -31,10 +36,21 @@ public class Productos extends ItemPanel {
                 break;
             case "Eliminar":
                 int asd = JOptionPane.showConfirmDialog(null, "Borrar Producto?");
+                //TODO
                 break;
             case "Generar reporte":
                 onItemReporte();
                 break;
+            case "Buscar":
+                Producto p = ProductoServicio.getInstancia().buscarProducto(Integer.parseInt(search.getText()));
+                DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+                tableModel.setRowCount(0);
+                if(p != null) {
+	                tableModel.addRow(new Object[]{p.getCodigoProducto(), p.getNombre(), p.getStock(), p.getDescripcion(), p.getDescripcion(), p.getMarca(), p.getModelo()});
+                }else {
+                	JOptionPane.showMessageDialog(null, "Busqueda sin resultados");
+                }
+            break;
         }
 
         System.out.println(e.getActionCommand());
@@ -42,7 +58,7 @@ public class Productos extends ItemPanel {
 
     @Override
     protected String[] getColumnsForList() {
-        return new String[]{"id", "nombre", "codigo", "stock" ,"descripcion", "marca", "modelo"};
+        return new String[]{"codigo", "nombre", "stock" ,"descripcion", "marca", "modelo"};
     }
 
     @Override

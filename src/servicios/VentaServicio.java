@@ -33,7 +33,7 @@ public class VentaServicio {
 		if(nuevaVentaId != -1){
 			for(ItemVenta iterador : items){
 				p = iterador.getProducto();
-				p.setPiezas_disp(p.getPiezas_disp()-iterador.getCantidad());
+				p.setStock(p.getStock()-iterador.getCantidad());
 				ProductoServicio.getInstancia().update(p);
 				iterador.setCodItemVenta(nuevaVentaId);
 				ItemVentaServicio.getInstancia().save(iterador);

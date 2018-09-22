@@ -3,14 +3,16 @@ package vista;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
+import modelo.Venta;
+import servicios.VentaServicio;
 
 public class Ventas extends ItemPanel {
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JTextField priceField;
 
     @Override
     protected String[] getColumnsForList() {
@@ -26,6 +28,19 @@ public class Ventas extends ItemPanel {
             case "Generar Reporte":
                 onVentaReporte();
             break;
+            case "Buscar":
+            	if(search.getText().isEmpty()) {
+            		break;
+            	}
+                Venta venta = VentaServicio.getInstancia().buscarVenta(Integer.parseInt(search.getText()));
+                DefaultTableModel tableModel = (DefaultTableModel) table.getModel();//.setValueAt("PRUEBA", 0, 2);
+                tableModel.setRowCount(0);
+                if(venta != null) {
+	                tableModel.addRow(new Object[]{venta.getNumeroVenta(), venta.getFechaVenta(), venta.getCliente().getDni(), venta.getTotal(), venta.getEnvio().getEstado()});
+                }else {
+                	JOptionPane.showMessageDialog(null, "Busqueda sin resultados");
+                }
+            break;
         }
     }
 
@@ -37,6 +52,7 @@ public class Ventas extends ItemPanel {
         lblSearch.setText("Buscar por Id: ");
         actionButton1.addActionListener(this);
         actionButton2.addActionListener(this);
+        actionButton5.addActionListener(this);
     }
 
     @Override

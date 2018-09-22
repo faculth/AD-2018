@@ -8,7 +8,7 @@ public class Producto {
 	private int precio;
 	private String marca;
 	private String modelo;
-	private int piezas_disp;
+	private int stock;
 	
 	
 	public Producto(){
@@ -51,21 +51,21 @@ public class Producto {
 	public void setModelo(String modelo) {
 		this.modelo = modelo;
 	}
-	public int getPiezas_disp() {
-		return piezas_disp;
+	public int getStock() {
+		return stock;
 	}
-	public void setPiezas_disp(int piezas_disp) {
-		this.piezas_disp = piezas_disp;
+	public void setStock(int stock) {
+		this.stock = stock;
 	}
 
 	public boolean tieneStock(int cantidad) {
-		if(this.piezas_disp - cantidad >= 0){
+		if(this.stock - cantidad >= 0){
 			return true;
 		}
 		return false;
 	}
 
 	public void actualizarStock(int cantidad) {
-		this.piezas_disp += cantidad;
+		this.stock += cantidad;
 	}
 }

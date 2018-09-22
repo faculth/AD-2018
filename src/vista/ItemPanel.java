@@ -30,6 +30,7 @@ abstract class ItemPanel extends JPanel implements ActionListener {
     protected JButton actionButton5;
     private JLabel lblNewLabel_1;
     protected JLabel lblSearch;
+    protected JScrollPane scrollPane;
 
     abstract protected String[] getColumnsForList();
 
@@ -45,10 +46,8 @@ abstract class ItemPanel extends JPanel implements ActionListener {
 		add(topPanel);
         layout  = new SpringLayout();
         topPanel.setLayout(layout);
-		buildTopElements();
 
-		search.setColumns(15);
-        String[] columnNames2 = { "id","UserName", "Email"};
+        //String[] columnNames2 = { "id","UserName", "Email"};
         Object[][] tableData2 = {{}};
         DefaultTableModel searchModel = new DefaultTableModel(tableData2, getColumnsForList());
 
@@ -59,26 +58,25 @@ abstract class ItemPanel extends JPanel implements ActionListener {
 		JButton back = new JButton("<");
 		PaginationPanel.add(back);
 		
-		
-		
 		JLabel lblNewLabel = new JLabel(String.valueOf(1 + currentPage*10) +" - "+ String.valueOf(currentPage *10 +10) + " de " + itemsCount);
 		PaginationPanel.add(lblNewLabel);
 		
 		JButton next = new JButton(">");
 		PaginationPanel.add(next);
 		
-		JScrollPane scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 113, 822, 499);
 		add(scrollPane);
 		
 		table = new JTable(searchModel);
-		
-
+		table.setCellSelectionEnabled(false);
 		scrollPane.setViewportView(table);
 		
 		lblNewLabel_1 = new JLabel(getSectionText());
 		lblNewLabel_1.setBounds(12, 12, 192, 15);
 		add(lblNewLabel_1);
+		
+		buildTopElements();
 	}
 
 
@@ -100,6 +98,7 @@ abstract class ItemPanel extends JPanel implements ActionListener {
 		topPanel.add(actionButton4);
 		
 		search = new JTextField();
+		search.setColumns(15);
 		layout.putConstraint(SpringLayout.EAST, search, 300, SpringLayout.EAST, actionButton4);
 		search.setToolTipText("");
 		search.setHorizontalAlignment(SwingConstants.LEFT);
