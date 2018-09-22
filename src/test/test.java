@@ -31,10 +31,15 @@ public class test {
 		//buscarVenta(); //ok
 		//registrarEnvio(); //ok
 		//modificarEnvio(); //ok
-		//ingresarSistema(); ESTO LO TENDRIA QUE PROTOTIPAR MARIANO
+		ingresarSistema();
 		//listarVentas();//mati
 		//listarEnvios();//mati
 		//generarReporteVenta();//mati
+	}
+
+	private static void ingresarSistema() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	private static void generarReporteVenta() {
