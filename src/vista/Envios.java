@@ -31,6 +31,7 @@ public class Envios extends ItemPanel {
         actionButton2.setText("Editar");
         actionButton3.setVisible(false);
         actionButton4.setVisible(false);
+        lblSearch.setText("Buscar por Id: ");
         actionButton1.addActionListener(this);
         actionButton2.addActionListener(this);
     }

@@ -34,6 +34,7 @@ public class Ventas extends ItemPanel {
         actionButton2.setText("Generar Reporte");
         actionButton3.setVisible(false);
         actionButton4.setVisible(false);
+        lblSearch.setText("Buscar por Id: ");
         actionButton1.addActionListener(this);
         actionButton2.addActionListener(this);
     }
