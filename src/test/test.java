@@ -27,7 +27,7 @@ public class test {
 		//actualizarStock(); //ok
 		/*NOTA: NO VERIFICO EL STOCK CUANDO GENERO LA VENTA, YA QUE QUE SUPUESTAMENTE A 
 		LA HORA DE APRETAR EL BOTON PARA AGREGAR EL PRODUCTO SE VERIFICA, Y SI NO TIENE NO TE LO DEJARIA AGREGAR A LA VENTA*/
-		generarVenta(); //ok
+		//generarVenta(); //ok
 		//buscarVenta(); //ok
 		//registrarEnvio(); //ok
 		//modificarEnvio(); //ok
@@ -116,8 +116,8 @@ public class test {
 	}
 
 	private static void actualizarStock() {
-		int stockNuevo = 15;
-		ProductoServicio.getInstancia().actualizarStock(3, stockNuevo);
+		int stockNuevo = 3;
+		ProductoServicio.getInstancia().actualizarStock(2, stockNuevo);
 	}
 
 	private static void buscarProducto() {
