@@ -31,10 +31,15 @@ public class test {
 		//buscarVenta(); //ok
 		//registrarEnvio(); //ok
 		//modificarEnvio(); //ok
-		//ingresarSistema(); ESTO LO TENDRIA QUE PROTOTIPAR MARIANO
+		ingresarSistema();
 		//listarVentas();//mati
 		//listarEnvios();//mati
 		//generarReporteVenta();//mati
+	}
+
+	private static void ingresarSistema() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	private static void generarReporteVenta() {
@@ -116,8 +121,8 @@ public class test {
 	}
 
 	private static void actualizarStock() {
-		int stockNuevo = 15;
-		ProductoServicio.getInstancia().actualizarStock(3, stockNuevo);
+		int stockNuevo = 3;
+		ProductoServicio.getInstancia().actualizarStock(2, stockNuevo);
 	}
 
 	private static void buscarProducto() {
