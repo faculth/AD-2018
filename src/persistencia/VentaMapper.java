@@ -68,10 +68,12 @@ public class VentaMapper {
 
 	public int insert(Venta v) {
 		try {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			@SuppressWarnings("unused")
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			String strDate = sdf.format(v.getFechaVenta());
 			PreparedStatement s = con.prepareStatement("INSERT INTO ventas (fecha,total,cliente_dni_cuit,usuario_dni,descuento,envio_id,reclamo_id) values (?,"
 					+ "?,?,?,?,?,?)");
-			s.setDate(1, (Date) v.getFechaVenta());
+			s.setString(1, strDate);
 			s.setFloat(2, v.getTotal());
 			s.setInt(3, v.getCliente().getDni());
 			s.setInt(4, v.getUsuario().getDni());
@@ -79,8 +81,14 @@ public class VentaMapper {
 			if(v.getEnvio() != null){
 				s.setInt(6, v.getEnvio().getNumEnvio());
 			}
+			else{
+				s.setNull(6, java.sql.Types.INTEGER);
+			}
 			if(v.getReclamo() != null){
 				s.setInt(7, v.getReclamo().getNumeroReclamo());
+			}
+			else{
+				s.setNull(7, java.sql.Types.INTEGER);
 			}
 			s.execute();
 		} catch (Exception e) {
@@ -92,7 +100,6 @@ public class VentaMapper {
 
 	public void update(Venta v) {
 		try {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			PreparedStatement s = con.prepareStatement("UPDATE ventas set fecha = ?, total = ?, cliente_dni_cuit = ?,usuario_dni = ?,descuento = ?,envido_id = ?, reclamo_id = ? where id_venta = ?");
 			s.setDate(1, (Date) v.getFechaVenta());
 			s.setFloat(2, v.getTotal());

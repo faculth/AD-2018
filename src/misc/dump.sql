@@ -57,7 +57,7 @@ CREATE TABLE roles (
 
   CREATE TABLE ventas (
    id_venta					INT				IDENTITY(1,1) NOT NULL,
-   fecha 					DATETIME 		NOT NULL,
+   fecha 					varchar(10) 	NOT NULL,
    total 					FLOAT 			NOT NULL DEFAULT 0,
    cliente_dni_cuit 		INT 			NOT NULL,
    usuario_dni 				INT 			NOT NULL,
