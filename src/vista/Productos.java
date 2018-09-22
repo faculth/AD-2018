@@ -51,10 +51,12 @@ public class Productos extends ItemPanel {
         actionButton2.setText("Modificar");
         actionButton3.setText("Eliminar");
         actionButton4.setText("Generar reporte");
+        lblSearch.setText("Buscar por Id: ");
         actionButton1.addActionListener(this);
         actionButton2.addActionListener(this);
         actionButton3.addActionListener(this);
         actionButton4.addActionListener(this);
+        actionButton5.addActionListener(this);
     }
 
     private void onItemReporte() {

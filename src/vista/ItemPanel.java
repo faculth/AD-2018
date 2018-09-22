@@ -27,7 +27,9 @@ abstract class ItemPanel extends JPanel implements ActionListener {
     protected JButton actionButton2;
     protected JButton actionButton3;
     protected JButton actionButton4;
+    protected JButton actionButton5;
     private JLabel lblNewLabel_1;
+    protected JLabel lblSearch;
 
     abstract protected String[] getColumnsForList();
 
@@ -45,7 +47,7 @@ abstract class ItemPanel extends JPanel implements ActionListener {
         topPanel.setLayout(layout);
 		buildTopElements();
 
-		search.setColumns(25);
+		search.setColumns(15);
         String[] columnNames2 = { "id","UserName", "Email"};
         Object[][] tableData2 = {{}};
         DefaultTableModel searchModel = new DefaultTableModel(tableData2, getColumnsForList());
@@ -56,6 +58,8 @@ abstract class ItemPanel extends JPanel implements ActionListener {
 		
 		JButton back = new JButton("<");
 		PaginationPanel.add(back);
+		
+		
 		
 		JLabel lblNewLabel = new JLabel(String.valueOf(1 + currentPage*10) +" - "+ String.valueOf(currentPage *10 +10) + " de " + itemsCount);
 		PaginationPanel.add(lblNewLabel);
@@ -94,12 +98,23 @@ abstract class ItemPanel extends JPanel implements ActionListener {
         actionButton4 = new JButton("Action4");
 		layout.putConstraint(SpringLayout.WEST, actionButton4, 10, SpringLayout.EAST, actionButton3);
 		topPanel.add(actionButton4);
-
+		
 		search = new JTextField();
-		layout.putConstraint(SpringLayout.EAST, search, 10, SpringLayout.EAST, topPanel);
+		layout.putConstraint(SpringLayout.EAST, search, 300, SpringLayout.EAST, actionButton4);
 		search.setToolTipText("");
 		search.setHorizontalAlignment(SwingConstants.LEFT);
 		topPanel.add(search);
+		
+		lblSearch = new JLabel();
+		layout.putConstraint(SpringLayout.EAST, lblSearch, 0, SpringLayout.WEST, search);
+		topPanel.add(lblSearch);
+		
+		actionButton5 = new JButton("Action5");
+		actionButton5.setText("Buscar");
+		layout.putConstraint(SpringLayout.WEST, actionButton5, 0, SpringLayout.EAST, search);
+		topPanel.add(actionButton5);
+
+
 		configureActions();
 	}
 
