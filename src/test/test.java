@@ -13,6 +13,7 @@ import modelo.ItemVenta;
 import modelo.Producto;
 import modelo.Usuario;
 import modelo.Venta;
+import persistencia.VentaMapper;
 import servicios.ClienteServicio;
 import servicios.EnvioServicio;
 import servicios.ProductoServicio;
@@ -31,10 +32,10 @@ public class test {
 		//buscarVenta(); //ok
 		//registrarEnvio(); //ok
 		//modificarEnvio(); //ok
-		ingresarSistema();
-		//listarVentas();//mati
-		//listarEnvios();//mati
-		//generarReporteVenta();//mati
+		//ingresarSistema();ok
+		//listarVentas();//ok
+		//listarEnvios();//ok
+		generarReporteVenta();//mati
 	}
 
 	private static void ingresarSistema() {
@@ -43,17 +44,17 @@ public class test {
 	}
 
 	private static void generarReporteVenta() {
-		// TODO Auto-generated method stub
-		
+		String fechaDesde = "2018-09-22";
+		String fechaHasta = "2018-09-22";
+		VentaServicio.getInstancia().nuevoReporteVentas(fechaDesde,fechaHasta);
 	}
 
 	private static void listarEnvios() {
-		// TODO Auto-generated method stub
-		
+		EnvioServicio.getInstancia().obtenerEnvios();
 	}
 
 	private static void listarVentas() {
-		// TODO Auto-generated method stub
+		VentaServicio.getInstancia().obtenerVentas();
 		
 	}
 

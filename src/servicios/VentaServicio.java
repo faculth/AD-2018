@@ -1,5 +1,6 @@
 package servicios;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import modelo.ItemVenta;
@@ -39,6 +40,16 @@ public class VentaServicio {
 				ItemVentaServicio.getInstancia().save(iterador);
 			}
 		}
+	}
+
+	public void obtenerVentas() {
+		List <Venta> ventas = new ArrayList<Venta>();
+		ventas = VentaMapper.getInstancia().getAll();
+	}
+
+	public void nuevoReporteVentas(String fechaDesde, String fechaHasta) {
+		List <Venta> ventas = new ArrayList<Venta>();
+		ventas = VentaMapper.getInstancia().getReport(fechaDesde,fechaHasta);
 	}
 	
 }

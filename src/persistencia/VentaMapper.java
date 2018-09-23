@@ -7,6 +7,9 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+
 import db.PoolConnection;
 import modelo.Venta;
 
@@ -117,5 +120,67 @@ public class VentaMapper {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public List<Venta> getAll() {
+		List <Venta> ventas = new ArrayList<Venta>();
+		Venta recuperada = null;
+		ResultSet resultado = null;
+		try {
+			PreparedStatement s = con.prepareStatement("SELECT * FROM ventas");
+			resultado = s.executeQuery();
+			if(resultado.next()){
+				recuperada = new Venta();
+				recuperada.setNumeroVenta(resultado.getInt(1));
+				recuperada.setFechaVenta(resultado.getDate(2));
+				recuperada.setTotal(resultado.getFloat(3));
+				recuperada.setCliente(ClienteMapper.getInstancia().getClienteById(resultado.getInt(4)));
+				recuperada.setUsuario(UsuarioMapper.getInstancia().getUsrById(resultado.getInt(5)));
+				recuperada.setItems(ItemVentaMapper.getInstancia().recuperarItemsVenta(resultado.getInt(1)));
+				recuperada.setDescuento(resultado.getInt(6));
+				if(resultado.getInt("envio_id") > 0){
+					recuperada.setEnvio(EnvioMapper.getInstancia().getEnvioById(resultado.getInt(7)));
+				}
+				if(resultado.getInt("reclamo_id") > 0){
+					recuperada.setReclamo(ReclamoMapper.getInstancia().getReclamoById(resultado.getInt(8)));
+				}
+				ventas.add(recuperada);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ventas;
+	}
+
+	public List<Venta> getReport(String fechaDesde, String fechaHasta) {
+		List <Venta> ventas = new ArrayList<Venta>();
+		Venta recuperada = null;
+		ResultSet resultado = null;
+		try {
+			PreparedStatement s = con.prepareStatement("SELECT * FROM ventas WHERE fecha >= '?' AND fecha <= '?'");
+			s.setString(1, fechaDesde);
+			s.setString(2, fechaDesde);
+			resultado = s.executeQuery();
+			if(resultado.next()){
+				recuperada = new Venta();
+				recuperada.setNumeroVenta(resultado.getInt(1));
+				recuperada.setFechaVenta(resultado.getDate(2));
+				recuperada.setTotal(resultado.getFloat(3));
+				recuperada.setCliente(ClienteMapper.getInstancia().getClienteById(resultado.getInt(4)));
+				recuperada.setUsuario(UsuarioMapper.getInstancia().getUsrById(resultado.getInt(5)));
+				recuperada.setItems(ItemVentaMapper.getInstancia().recuperarItemsVenta(resultado.getInt(1)));
+				recuperada.setDescuento(resultado.getInt(6));
+				if(resultado.getInt("envio_id") > 0){
+					recuperada.setEnvio(EnvioMapper.getInstancia().getEnvioById(resultado.getInt(7)));
+				}
+				if(resultado.getInt("reclamo_id") > 0){
+					recuperada.setReclamo(ReclamoMapper.getInstancia().getReclamoById(resultado.getInt(8)));
+				}
+				ventas.add(recuperada);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ventas;
 	}
 }
