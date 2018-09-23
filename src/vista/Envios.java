@@ -1,7 +1,8 @@
 package vista;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
+
+import javax.swing.JOptionPane;
 
 public class Envios extends ItemPanel {
     /**

@@ -5,7 +5,6 @@ package persistencia;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -125,7 +124,7 @@ public class VentaMapper {
 		try {
 			PreparedStatement s = con.prepareStatement("SELECT * FROM ventas");
 			resultado = s.executeQuery();
-			if(resultado.next()){
+			while(resultado.next()){
 				recuperada = new Venta();
 				recuperada.setNumeroVenta(resultado.getInt(1));
 				recuperada.setFechaVenta(resultado.getString(2));

@@ -50,7 +50,7 @@ public class ClienteMapper {
 		ResultSet resultado = null;
 		try {
 			PreparedStatement s = con.prepareStatement("SELECT * FROM CLIENTES");
-			resultado = s.getResultSet();
+			resultado = s.executeQuery();
 			while(resultado.next()){
 				cli = new Cliente();
 				cli.setDni(resultado.getInt(1));
