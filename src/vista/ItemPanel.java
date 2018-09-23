@@ -31,6 +31,7 @@ abstract class ItemPanel extends JPanel implements ActionListener {
     private JLabel lblNewLabel_1;
     protected JLabel lblSearch;
     protected JScrollPane scrollPane;
+    protected DefaultTableModel searchModel;
 
     abstract protected String[] getColumnsForList();
 
@@ -47,9 +48,8 @@ abstract class ItemPanel extends JPanel implements ActionListener {
         layout  = new SpringLayout();
         topPanel.setLayout(layout);
 
-        //String[] columnNames2 = { "id","UserName", "Email"};
-        Object[][] tableData2 = {{}};
-        DefaultTableModel searchModel = new DefaultTableModel(tableData2, getColumnsForList()) {
+        Object[][] tableData2 = {};
+        searchModel = new DefaultTableModel(tableData2, getColumnsForList()) {
  			private static final long serialVersionUID = 8095720010196161749L;
 
 			@Override

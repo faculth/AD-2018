@@ -21,6 +21,7 @@ public class FormDialog extends JDialog{
 	 * Create the dialog.
 	 */
 	public FormDialog(JPanel form) {
+		this.setAlwaysOnTop(true);
 		contentPanel = form;
         System.out.println(form.getWidth());
         System.out.println( form.getHeight());

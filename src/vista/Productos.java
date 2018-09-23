@@ -2,10 +2,12 @@ package vista;
 
 
 import java.awt.event.ActionEvent;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+import modelo.Cliente;
 import modelo.Producto;
 import servicios.ProductoServicio;
 
@@ -43,13 +45,14 @@ public class Productos extends ItemPanel {
                 break;
             case "Buscar":
             	if(search.getText().isEmpty()) {
+            		cargarProductos();
             		break;
             	}
                 Producto p = ProductoServicio.getInstancia().buscarProducto(Integer.parseInt(search.getText()));
                 DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
                 tableModel.setRowCount(0);
                 if(p != null) {
-	                tableModel.addRow(new Object[]{p.getCodigoProducto(), p.getNombre(), p.getStock(), p.getDescripcion(), p.getDescripcion(), p.getMarca(), p.getModelo()});
+                	agregarPrductoTabla(p);
                 }else {
                 	JOptionPane.showMessageDialog(null, "Busqueda sin resultados");
                 }
@@ -76,6 +79,16 @@ public class Productos extends ItemPanel {
         actionButton3.addActionListener(this);
         actionButton4.addActionListener(this);
         actionButton5.addActionListener(this);
+        cargarProductos();
+    }
+    
+    private void cargarProductos() {
+        List<Producto> productos = ProductoServicio.getInstancia().obtenerProductos();
+        productos.forEach(p -> agregarPrductoTabla(p));
+    }
+    
+    private void agregarPrductoTabla(Producto p) {
+        searchModel.addRow(new Object[]{p.getCodigoProducto(), p.getNombre(), p.getStock(), p.getDescripcion(), p.getDescripcion(), p.getMarca(), p.getModelo()});
     }
 
     private void onItemReporte() {

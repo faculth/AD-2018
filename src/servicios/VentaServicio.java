@@ -42,9 +42,10 @@ public class VentaServicio {
 		}
 	}
 
-	public void obtenerVentas() {
+	public List<Venta> obtenerVentas() {
 		List <Venta> ventas = new ArrayList<Venta>();
 		ventas = VentaMapper.getInstancia().getAll();
+		return ventas;
 	}
 
 	public void nuevoReporteVentas(String fechaDesde, String fechaHasta) {

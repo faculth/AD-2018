@@ -125,7 +125,7 @@ public class VentaMapper {
 		try {
 			PreparedStatement s = con.prepareStatement("SELECT * FROM ventas");
 			resultado = s.executeQuery();
-			if(resultado.next()){
+			while(resultado.next()){
 				recuperada = new Venta();
 				recuperada.setNumeroVenta(resultado.getInt(1));
 				recuperada.setFechaVenta(resultado.getString(2));

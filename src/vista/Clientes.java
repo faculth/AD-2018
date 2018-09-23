@@ -1,12 +1,13 @@
 package vista;
 
-import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.util.List;
+
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import modelo.Cliente;
 import servicios.ClienteServicio;
-
-import java.awt.event.ActionEvent;
 
 public class Clientes extends ItemPanel {
     /**
@@ -35,13 +36,14 @@ public class Clientes extends ItemPanel {
             break;
             case "Buscar":
             	if(search.getText().isEmpty()) {
+            		cargarClientes();
             		break;
             	}
                 Cliente cl = ClienteServicio.getInstancia().buscarCliente(Integer.parseInt(search.getText()));
                 DefaultTableModel tableModel = (DefaultTableModel) table.getModel();//.setValueAt("PRUEBA", 0, 2);
                 tableModel.setRowCount(0);
                 if(cl != null) {
-	                tableModel.addRow(new Object[]{cl.getNombre()+" "+cl.getApellido(), cl.getDni(), cl.getEmail(), cl.getTelefono(), cl.getTipoCliente()});
+	                agregarClienteTabla(cl);
                 }else {
                 	JOptionPane.showMessageDialog(null, "Busqueda sin resultados");
                 }
@@ -60,6 +62,16 @@ public class Clientes extends ItemPanel {
         actionButton2.addActionListener(this);
         actionButton3.addActionListener(this);
         actionButton5.addActionListener(this);
+        cargarClientes();
+    }
+    
+    private void cargarClientes() {
+    	List<Cliente> clientes = ClienteServicio.getInstancia().obtenerClientes();
+        clientes.forEach(c -> agregarClienteTabla(c));
+    }
+    
+    private void agregarClienteTabla(Cliente cl) {
+        searchModel.addRow(new Object[]{cl.getNombre()+" "+cl.getApellido(), cl.getDni(), cl.getEmail(), cl.getTelefono(), cl.getTipoCliente()});
     }
 
     @Override

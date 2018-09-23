@@ -1,13 +1,16 @@
 package vista;
 
 import java.awt.event.ActionEvent;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import modelo.Cliente;
+import modelo.Envio;
 import modelo.Venta;
 import servicios.ClienteServicio;
+import servicios.EnvioServicio;
 import servicios.VentaServicio;
 
 public class Ventas extends ItemPanel {
@@ -32,14 +35,14 @@ public class Ventas extends ItemPanel {
             break;
             case "Buscar":
             	if(search.getText().isEmpty()) {
+            		cargarVentas();
             		break;
             	}
-                Venta venta = VentaServicio.getInstancia().buscarVenta(Integer.parseInt(search.getText()));
+                Venta v = VentaServicio.getInstancia().buscarVenta(Integer.parseInt(search.getText()));
                 DefaultTableModel tableModel = (DefaultTableModel) table.getModel();//.setValueAt("PRUEBA", 0, 2);
                 tableModel.setRowCount(0);
-                if(venta != null) {
-                	String estadoEnvio = venta.getEnvio() == null ? "" : venta.getEnvio().getEstado();  
-	                tableModel.addRow(new Object[]{venta.getNumeroVenta(), venta.getFechaVenta(), venta.getCliente().getDni(), venta.getTotal(), estadoEnvio});
+                if(v != null) {
+                	agregarVentaTabla(v);
                 }else {
                 	JOptionPane.showMessageDialog(null, "Busqueda sin resultados");
                 }
@@ -56,6 +59,17 @@ public class Ventas extends ItemPanel {
         actionButton1.addActionListener(this);
         actionButton2.addActionListener(this);
         actionButton5.addActionListener(this);
+        cargarVentas();
+    }
+    
+    private void cargarVentas() {
+        List<Venta> ventas = VentaServicio.getInstancia().obtenerVentas();
+        ventas.forEach(v -> agregarVentaTabla(v));
+    }
+    
+    private void agregarVentaTabla(Venta v) {
+        String estadoEnvio = v.getEnvio() == null ? "" : v.getEnvio().getEstado();
+        searchModel.addRow(new Object[]{v.getNumeroVenta(), v.getFechaVenta(), v.getCliente().getDni(), v.getTotal(), estadoEnvio});
     }
 
     @Override
