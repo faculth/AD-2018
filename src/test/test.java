@@ -49,17 +49,16 @@ public class test {
 
 	private static void generarReporteVenta() {
 		List <Venta> ventas = new ArrayList<Venta>();
-		int contandor = 2;
-		String scontador = String.valueOf(contandor);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String fechaComoCadena = sdf.format(new Date());
-		String fechaDesde = "2018-09-22";
-		String fechaHasta = "2018-09-22";
+		int contador = 2;
+		String scontador = String.valueOf(contador);
+		String fVenta = "";
+		String fechaDesde = "22/09/2018";
+		String fechaHasta = "23/09/2018";
 		ventas = VentaServicio.getInstancia().nuevoReporteVentas(fechaDesde,fechaHasta);
 		 Map<String, Object[]> data = new TreeMap<String, Object[]>();
 		 data.put("1", new Object[] {"Numero de venta", "Fecha", "Total","Cliente","Vendedor","Descuento","Numero de envio","Numero de reclamo"});
 		 for(int i = 0;i<ventas.size();i++){
-			 fechaComoCadena = sdf.format(ventas.get(i).getFechaVenta());
+			 fVenta = ventas.get(i).getFechaVenta();
 			 String total = String.valueOf(ventas.get(i).getTotal());
 			 int dniCli = ventas.get(i).getCliente().getDni();
 			 int dniUser = ventas.get(i).getUsuario().getDni();
@@ -67,12 +66,13 @@ public class test {
 			 if(ventas.get(i).getEnvio() != null && ventas.get(i).getReclamo() != null){
 				int envio = ventas.get(i).getEnvio().getNumEnvio();
 			 	int reclamo = ventas.get(i).getReclamo().getNumeroReclamo();
-			 	data.put(scontador, new Object[] {ventas.get(i).getNumeroVenta(),fechaComoCadena,total,dniCli,dniUser,descuento,envio,reclamo});
+			 	data.put(scontador, new Object[] {ventas.get(i).getNumeroVenta(),fVenta,total,dniCli,dniUser,descuento,envio,reclamo});
 			 }
 			 else{
-				 data.put(scontador, new Object[] {ventas.get(i).getNumeroVenta(),fechaComoCadena,total,dniCli,dniUser,descuento});
+				 data.put(scontador, new Object[] {ventas.get(i).getNumeroVenta(),fVenta,total,dniCli,dniUser,descuento});
 			 }
-			 ventas.remove(i);
+			 contador++;
+			 scontador = String.valueOf(contador);
 			 
 		 }
 		 ExportExcel.exportExcel("DatosVentas",data,"Excel.xlsx");

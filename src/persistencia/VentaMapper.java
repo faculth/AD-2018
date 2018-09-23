@@ -154,9 +154,9 @@ public class VentaMapper {
 		try {
 			PreparedStatement s = con.prepareStatement("SELECT * FROM ventas WHERE fecha >= ? AND fecha <= ?");
 			s.setString(1, fechaDesde);
-			s.setString(2, fechaDesde);
+			s.setString(2, fechaHasta);
 			resultado = s.executeQuery();
-			if(resultado.next()){
+			while(resultado.next()){
 				recuperada = new Venta();
 				recuperada.setNumeroVenta(resultado.getInt(1));
 				recuperada.setFechaVenta(resultado.getString(2));
