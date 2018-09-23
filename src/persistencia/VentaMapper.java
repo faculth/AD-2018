@@ -152,7 +152,7 @@ public class VentaMapper {
 		Venta recuperada = null;
 		ResultSet resultado = null;
 		try {
-			PreparedStatement s = con.prepareStatement("SELECT * FROM ventas WHERE fecha >= '?' AND fecha <= '?'");
+			PreparedStatement s = con.prepareStatement("SELECT * FROM ventas WHERE fecha >= ? AND fecha <= ?");
 			s.setString(1, fechaDesde);
 			s.setString(2, fechaDesde);
 			resultado = s.executeQuery();
