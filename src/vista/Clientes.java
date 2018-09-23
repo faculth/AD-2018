@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.util.List;
 
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 import modelo.Cliente;
 import servicios.ClienteServicio;
@@ -32,7 +31,7 @@ public class Clientes extends ItemPanel {
                 formCreation.setTitle("Alta de clientes");
             break;
             case "Eliminar":
-                int input = JOptionPane.showConfirmDialog(null,"Borrar cliente?");
+                //int input = JOptionPane.showConfirmDialog(null,"Borrar cliente?");
             break;
             case "Buscar":
             	if(search.getText().isEmpty()) {

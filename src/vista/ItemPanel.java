@@ -32,7 +32,10 @@ abstract class ItemPanel extends JPanel implements ActionListener {
     protected JLabel lblSearch;
     protected JScrollPane scrollPane;
     protected DefaultTableModel searchModel;
-
+    protected JButton back;
+    protected JButton next;
+    private JLabel lblPagination;
+    
     abstract protected String[] getColumnsForList();
 
     public ItemPanel() {
@@ -63,17 +66,17 @@ abstract class ItemPanel extends JPanel implements ActionListener {
 		PaginationPanel.setBounds(12, 624, 822, 45);
 		add(PaginationPanel);
 		
-		JButton back = new JButton("<");
+		back = new JButton("<");
 		PaginationPanel.add(back);
 		
-		JLabel lblNewLabel = new JLabel(String.valueOf(1 + currentPage*10) +" - "+ String.valueOf(currentPage *10 +10) + " de " + itemsCount);
-		PaginationPanel.add(lblNewLabel);
+		lblPagination = new JLabel(String.valueOf(1 + currentPage*30) +" - "+ String.valueOf(currentPage *30 +30) + " de " + itemsCount);
+		PaginationPanel.add(lblPagination);
 		
-		JButton next = new JButton(">");
+		next = new JButton(">");
 		PaginationPanel.add(next);
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 113, 822, 499);
+		scrollPane.setBounds(12, 113, 822, 505);
 		add(scrollPane);
 		
 		table = new JTable(searchModel);
@@ -135,6 +138,10 @@ abstract class ItemPanel extends JPanel implements ActionListener {
 
 	protected String getTootltipForSearchBar() {
 		return "Search by : ";
+	}
+	
+	protected void setPagesInfo(){
+		lblPagination.setText(String.valueOf(1 + currentPage*30) +" - "+ String.valueOf(currentPage *30 +30) + " de " + itemsCount);
 	}
 
 }

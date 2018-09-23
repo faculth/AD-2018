@@ -21,9 +21,9 @@ public class ProductoServicio {
 		return p;
 	}
 	
-	public List <Producto> obtenerProductos(){
+	public List <Producto> obtenerProductos(int inicio, int fin){
 		List<Producto> productos = null;
-		productos = ProductoMapper.getInstancia().getAll();
+		productos = ProductoMapper.getInstancia().getAll(inicio, fin);
 		return productos;
 	}
 	
@@ -48,5 +48,9 @@ public class ProductoServicio {
 			p.actualizarStock(cantidad);
 			ProductoMapper.getInstancia().update(p);
 		}
+	}
+
+	public int getCantProd() {
+		return ProductoMapper.getInstancia().getCantProd();
 	}
 }

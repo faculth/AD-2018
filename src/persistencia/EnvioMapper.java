@@ -46,6 +46,7 @@ public class EnvioMapper {
 		ResultSet resultado = null;
 		try {
 			PreparedStatement s = con.prepareStatement("SELECT * FROM envios");
+			resultado = s.executeQuery();
 			while(resultado.next()){
 				env = new Envio();
 				env.setNumEnvio(resultado.getInt(1));
@@ -70,7 +71,7 @@ public class EnvioMapper {
 	
 	public void update(Envio v){
 		try {
-			PreparedStatement s = con.prepareStatement("UPDATE envios SET estado = '?' where id_envio = ?");
+			PreparedStatement s = con.prepareStatement("UPDATE envios SET estado = ? where id_envio = ?");
 			s.setString(1, v.getEstado());
 			s.setInt(2, v.getNumEnvio());
 			s.execute();
@@ -83,7 +84,8 @@ public class EnvioMapper {
 		int ultimoId = 0;
 		ResultSet resultado = null;
 		try {
-			PreparedStatement s = con.prepareStatement("UPDATE TOP 1 id_envio ORDER BY id_envio DESC");
+			PreparedStatement s = con.prepareStatement("SELECT TOP 1 id_envio FROM envios ORDER BY id_envio DESC");
+			resultado = s.executeQuery();
 			if(resultado.next()){
 				ultimoId = resultado.getInt(1);
 			}
@@ -97,7 +99,7 @@ public class EnvioMapper {
 		int ultimoId = obtenerUltimoEnvio();
 		Envio nuevo = new Envio();
 		nuevo.setNumEnvio(ultimoId+1);
-		nuevo.setEstado("Enviado");
+		nuevo.setEstado("Despachado");
 		this.save(nuevo);
 		v.setEnvio(nuevo);
 		VentaMapper.getInstancia().update(v);

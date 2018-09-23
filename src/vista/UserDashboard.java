@@ -17,6 +17,10 @@ import javax.swing.border.LineBorder;
 
 
 public class UserDashboard extends JPanel implements ActionListener {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -978932224043486391L;
 	private JPanel mainPanel;
     private CardLayout cardLayout;
     private Sistema controller;

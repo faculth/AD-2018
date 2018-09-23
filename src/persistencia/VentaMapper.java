@@ -99,7 +99,7 @@ public class VentaMapper {
 
 	public void update(Venta v) {
 		try {
-			PreparedStatement s = con.prepareStatement("UPDATE ventas set fecha = ?, total = ?, cliente_dni_cuit = ?,usuario_dni = ?,descuento = ?,envido_id = ?, reclamo_id = ? where id_venta = ?");
+			PreparedStatement s = con.prepareStatement("UPDATE ventas set fecha = ?, total = ?, cliente_dni_cuit = ?,usuario_dni = ?,descuento = ?,envio_id = ?, reclamo_id = ? where id_venta = ?");
 			s.setString(1, v.getFechaVenta());
 			s.setFloat(2, v.getTotal());
 			s.setInt(3, v.getCliente().getDni());
@@ -108,8 +108,14 @@ public class VentaMapper {
 			if(v.getEnvio() != null){
 				s.setInt(6, v.getEnvio().getNumEnvio());
 			}
+			else{
+				s.setNull(6, java.sql.Types.INTEGER);
+			}
 			if(v.getReclamo() != null){
 				s.setInt(7, v.getReclamo().getNumeroReclamo());
+			}
+			else{
+				s.setNull(7, java.sql.Types.INTEGER);
 			}
 			s.setInt(8, v.getNumeroVenta());
 			s.execute();
@@ -153,7 +159,7 @@ public class VentaMapper {
 		Venta recuperada = null;
 		ResultSet resultado = null;
 		try {
-			PreparedStatement s = con.prepareStatement("SELECT * FROM ventas WHERE fecha >= '?' AND fecha <= '?'");
+			PreparedStatement s = con.prepareStatement("SELECT * FROM ventas WHERE fecha >= ? AND fecha <= ?");
 			s.setString(1, fechaDesde);
 			s.setString(2, fechaHasta);
 			resultado = s.executeQuery();

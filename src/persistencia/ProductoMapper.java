@@ -43,12 +43,14 @@ public class ProductoMapper {
 		return recuperado;
 	}
 	
-	public List<Producto> getAll(){
+	public List<Producto> getAll(int inicio, int fin){
 		List <Producto> productos = new ArrayList<Producto>();
 		Producto recuperado = null;
 		ResultSet resultado = null;
 		try {
-			PreparedStatement s = con.prepareStatement("SELECT * FROM PRODUCTOS");
+			PreparedStatement s = con.prepareStatement("SELECT * FROM productos ORDER BY codigo OFFSET ? ROWS FETCH NEXT ? ROWS ONLY");
+			s.setInt(1, inicio);
+			s.setInt(2, fin);
 			resultado = s.executeQuery();
 			while(resultado.next()){
 				recuperado = new Producto();
@@ -83,5 +85,19 @@ public class ProductoMapper {
 			e.printStackTrace();
 			return false;
 		}
+	}
+	
+	public int getCantProd() {
+		try {
+			PreparedStatement s = con.prepareStatement("SELECT COUNT(*) FROM productos");
+			ResultSet resultado = null;
+			resultado = s.executeQuery();
+			if(resultado.next()){
+				return resultado.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1;
 	}
 }

@@ -18,7 +18,7 @@ import modelo.Venta;
 import persistencia.VentaMapper;
 import servicios.ClienteServicio;
 import servicios.EnvioServicio;
-import servicios.ExportExcel;
+import servicios.ExportExcelServicio;
 import servicios.ProductoServicio;
 import servicios.UsuarioServicio;
 import servicios.VentaServicio;
@@ -75,7 +75,7 @@ public class test {
 			 scontador = String.valueOf(contador);
 			 
 		 }
-		 ExportExcel.exportExcel("DatosVentas",data,"Excel.xlsx");
+		 ExportExcelServicio.exportExcel("DatosVentas",data,"Excel.xlsx");
 	}
 
 	private static void listarEnvios() {

@@ -2,10 +2,10 @@ package vista;
 
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 import modelo.Producto;
 import servicios.ProductoServicio;
@@ -52,14 +52,13 @@ public class Productos extends ItemPanel {
                 break;
             case "Buscar":
             	if(search.getText().isEmpty()) {
-            		cargarProductos();
+            		cargarProductos(0,30);
             		break;
             	}
                 Producto p = ProductoServicio.getInstancia().buscarProducto(Integer.parseInt(search.getText()));
-                DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
-                tableModel.setRowCount(0);
+                searchModel.setRowCount(0);
                 if(p != null) {
-                	agregarPrductoTabla(p);
+                	agregarProductoTabla(p);
                 }else {
                 	JOptionPane.showMessageDialog(null, "Busqueda sin resultados");
                 }
@@ -86,16 +85,42 @@ public class Productos extends ItemPanel {
         actionButton3.addActionListener(this);
         actionButton4.addActionListener(this);
         actionButton5.addActionListener(this);
-        cargarProductos();
+        
+        itemsCount = ProductoServicio.getInstancia().getCantProd();
+        setPagesInfo();
+        
+        back.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(currentPage > 0){
+					currentPage--;
+					cargarProductos(currentPage*30,currentPage *30 +30);
+					setPagesInfo();
+				}
+			}
+		});
+        
+        next.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(((currentPage+1) *30) < itemsCount){
+					currentPage++;
+					cargarProductos(currentPage*30,currentPage *30 +30);
+					setPagesInfo();
+				}
+			}
+		});
+        
+        cargarProductos(0,30);
     }
     
-    private void cargarProductos() {
+    private void cargarProductos(int inicio, int fin) {
     	searchModel.setRowCount(0);
-        List<Producto> productos = ProductoServicio.getInstancia().obtenerProductos();
-        productos.forEach(p -> agregarPrductoTabla(p));
+        List<Producto> productos = ProductoServicio.getInstancia().obtenerProductos(inicio, fin);
+        productos.forEach(p -> agregarProductoTabla(p));
     }
     
-    private void agregarPrductoTabla(Producto p) {
+    private void agregarProductoTabla(Producto p) {
         searchModel.addRow(new Object[]{p.getCodigoProducto(), p.getNombre(), p.getStock(), p.getDescripcion(), p.getDescripcion(), p.getMarca(), p.getModelo()});
     }
 
