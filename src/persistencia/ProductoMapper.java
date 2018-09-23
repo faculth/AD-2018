@@ -52,7 +52,6 @@ public class ProductoMapper {
 			resultado = s.executeQuery();
 			while(resultado.next()){
 				recuperado = new Producto();
-				recuperado = new Producto();
 				recuperado.setCodigoProducto(resultado.getInt(1));
 				recuperado.setNombre(resultado.getString(2));
 				recuperado.setPrecio(resultado.getInt(3));
@@ -68,7 +67,7 @@ public class ProductoMapper {
 		return productos;
 	}
 
-	public void update(Producto producto) {
+	public boolean update(Producto producto) {
 		try {
 			PreparedStatement s = con.prepareStatement("UPDATE productos SET nombre = ?, precio = ?, descripcion = ?, unidades_disponibles = ?, marca = ?, modelo = ? WHERE codigo = ?");
 			s.setString(1, producto.getNombre());
@@ -79,8 +78,10 @@ public class ProductoMapper {
 			s.setString(6, producto.getModelo());
 			s.setInt(7, producto.getCodigoProducto());
 			s.execute();
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return false;
 		}
 	}
 }

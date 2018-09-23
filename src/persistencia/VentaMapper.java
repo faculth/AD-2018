@@ -91,6 +91,7 @@ public class VentaMapper {
 			s.execute();
 		} catch (Exception e) {
 			e.printStackTrace();
+			return -1;
 		}
 		return VentaMapper.getInstancia().obtenerUltimoId();
 	}
@@ -152,7 +153,7 @@ public class VentaMapper {
 		Venta recuperada = null;
 		ResultSet resultado = null;
 		try {
-			PreparedStatement s = con.prepareStatement("SELECT * FROM ventas WHERE fecha >= ? AND fecha <= ?");
+			PreparedStatement s = con.prepareStatement("SELECT * FROM ventas WHERE fecha >= '?' AND fecha <= '?'");
 			s.setString(1, fechaDesde);
 			s.setString(2, fechaHasta);
 			resultado = s.executeQuery();

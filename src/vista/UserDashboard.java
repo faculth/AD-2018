@@ -108,7 +108,7 @@ public class UserDashboard extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
     	if (e.getActionCommand() == "Salir") {
-			System.out.printf("LOGOUT");
+			System.exit(0);
 		}
     	controller.showCard(e.getActionCommand());
     }

@@ -3,6 +3,9 @@ package persistencia;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
 import db.PoolConnection;
 import modelo.Usuario;
 
@@ -37,6 +40,28 @@ public class UsuarioMapper {
 			System.out.println(e);
 		}
 		return recuperado;
+	}
+	
+	public List<Usuario> getAll(){
+		List <Usuario> usurios = new ArrayList<Usuario>();
+		Usuario recuperado = null;
+		ResultSet resultado = null;
+		try {
+			PreparedStatement s = con.prepareStatement("SELECT * FROM USUARIOS");
+			resultado = s.executeQuery();
+			while(resultado.next()){
+				recuperado = new Usuario();
+				recuperado.setDni(resultado.getInt(1));
+				recuperado.setNombre(resultado.getString(2));
+				recuperado.setRol(RolMapper.getInstancia().getRolById(resultado.getInt(3)));
+				recuperado.setPassword(resultado.getString(4));
+				recuperado.setActivo(resultado.getBoolean(5));
+				usurios.add(recuperado);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return usurios;
 	}
 
 	public int usuarioValido(String[] loginInfo) {

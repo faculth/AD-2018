@@ -40,8 +40,7 @@ public class Clientes extends ItemPanel {
             		break;
             	}
                 Cliente cl = ClienteServicio.getInstancia().buscarCliente(Integer.parseInt(search.getText()));
-                DefaultTableModel tableModel = (DefaultTableModel) table.getModel();//.setValueAt("PRUEBA", 0, 2);
-                tableModel.setRowCount(0);
+                searchModel.setRowCount(0);
                 if(cl != null) {
 	                agregarClienteTabla(cl);
                 }else {
@@ -66,6 +65,7 @@ public class Clientes extends ItemPanel {
     }
     
     private void cargarClientes() {
+    	searchModel.setRowCount(0);
     	List<Cliente> clientes = ClienteServicio.getInstancia().obtenerClientes();
         clientes.forEach(c -> agregarClienteTabla(c));
     }

@@ -1,7 +1,9 @@
 package servicios;
 
-import persistencia.UsuarioMapper;
+import java.util.List;
+
 import modelo.Usuario;
+import persistencia.UsuarioMapper;
 
 public class UsuarioServicio {
 	private static UsuarioServicio instancia;
@@ -21,6 +23,12 @@ public class UsuarioServicio {
 	public int validarUser(String[] loginInfo) {
 		int existe = UsuarioMapper.getInstancia().usuarioValido(loginInfo);
 		return existe;
+	}
+	
+	public List<Usuario> obtenerUsuarios(){
+		List<Usuario> usuarios = null;
+		usuarios = UsuarioMapper.getInstancia().getAll();
+		return usuarios;
 	}
 	
 	

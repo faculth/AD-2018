@@ -1,7 +1,10 @@
 package vista;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.util.List;
+
+import modelo.Usuario;
+import servicios.UsuarioServicio;
 
 public class Usuarios extends ItemPanel {
     /**
@@ -24,7 +27,6 @@ public class Usuarios extends ItemPanel {
                 formCreation.setVisible(true);
                 break;
             case "Eliminar":
-                int input = JOptionPane.showConfirmDialog(null,"Borrar Usuario?");
         }
         System.out.println(e.getActionCommand());
 
@@ -40,6 +42,17 @@ public class Usuarios extends ItemPanel {
         actionButton2.addActionListener(this);
         actionButton3.addActionListener(this);
         actionButton4.addActionListener(this);
+        cargarUsuarios();
+    }
+    
+    private void cargarUsuarios() {
+    	searchModel.setRowCount(0);
+        List<Usuario> usuarios = UsuarioServicio.getInstancia().obtenerUsuarios();
+        usuarios.forEach(u -> agregarUsuarioTabla(u));
+    }
+    
+    private void agregarUsuarioTabla(Usuario u) {
+        searchModel.addRow(new Object[]{u.getNombre(), u.getDni(), u.getRol().getNombre()});
     }
 
     @Override

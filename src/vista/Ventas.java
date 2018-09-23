@@ -7,10 +7,8 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import modelo.Cliente;
-import modelo.Envio;
 import modelo.Venta;
 import servicios.ClienteServicio;
-import servicios.EnvioServicio;
 import servicios.VentaServicio;
 
 public class Ventas extends ItemPanel {
@@ -63,6 +61,7 @@ public class Ventas extends ItemPanel {
     }
     
     private void cargarVentas() {
+    	searchModel.setRowCount(0);
         List<Venta> ventas = VentaServicio.getInstancia().obtenerVentas();
         ventas.forEach(v -> agregarVentaTabla(v));
     }

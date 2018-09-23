@@ -38,8 +38,8 @@ public class ProductoServicio {
 		return false;
 	}
 	
-	public void update(Producto prod){
-		ProductoMapper.getInstancia().update(prod);
+	public boolean update(Producto prod){
+		return ProductoMapper.getInstancia().update(prod);
 	}
 	
 	public void actualizarStock(int codigoProducto,int cantidad){

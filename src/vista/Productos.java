@@ -7,7 +7,6 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-import modelo.Cliente;
 import modelo.Producto;
 import servicios.ProductoServicio;
 
@@ -28,17 +27,25 @@ public class Productos extends ItemPanel {
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
             case "Agregar":
-                String input = JOptionPane.showInputDialog("Ingrese codigo de producto: ");
-                ProductForm form = new ProductForm(input);
+                //String input = JOptionPane.showInputDialog("Ingrese codigo de producto: ");
+                ProductForm form = new ProductForm(null);
                 FormDialog formCreation = new FormDialog(form);
                 formCreation.setTitle("Alta de productos");
                 formCreation.setSize(400, 380);
                 formCreation.setLocationRelativeTo(null);
                 formCreation.setVisible(true);
                 break;
-            case "Eliminar":
-                int asd = JOptionPane.showConfirmDialog(null, "Borrar Producto?");
-                //TODO
+            case "Modificar":
+                String input2 = JOptionPane.showInputDialog("Ingrese codigo de producto: ");
+                if(input2 != null && !input2.isEmpty()){
+                	Producto p = ProductoServicio.getInstancia().buscarProducto(Integer.parseInt(input2));
+	                ProductForm form2 = new ProductForm(p);
+	                FormDialog formCreation2 = new FormDialog(form2);
+	                formCreation2.setTitle("Modificación de productos");
+	                formCreation2.setSize(400, 380);
+	                formCreation2.setLocationRelativeTo(null);
+	                formCreation2.setVisible(true);
+                }
                 break;
             case "Generar reporte":
                 onItemReporte();
@@ -83,6 +90,7 @@ public class Productos extends ItemPanel {
     }
     
     private void cargarProductos() {
+    	searchModel.setRowCount(0);
         List<Producto> productos = ProductoServicio.getInstancia().obtenerProductos();
         productos.forEach(p -> agregarPrductoTabla(p));
     }

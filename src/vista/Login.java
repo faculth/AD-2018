@@ -1,12 +1,21 @@
 package vista;
 
-import controlador.LoginController;
-import servicios.UsuarioServicio;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Label;
+import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.UIManager;
+
+import controlador.LoginController;
+import servicios.UsuarioServicio;
 
 public class Login extends JPanel implements ActionListener {
 	/**
@@ -32,6 +41,14 @@ public class Login extends JPanel implements ActionListener {
 		
 		passwordField = new JPasswordField();
 		passwordField.setBounds(130, 85, 263, 21);
+		passwordField.addKeyListener(new KeyAdapter() {		
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER){
+					loginButton.doClick();
+				}
+			}
+		});
 		add(passwordField);
 		
 		Label userNameLabel = new Label("DNI");

@@ -25,7 +25,7 @@ public class VentaServicio {
 		return v;
 	}
 	
-	public void generarVenta(Venta v){
+	public int generarVenta(Venta v){
 		Producto p = null;
 		List <ItemVenta> items = v.getItems();
 		v.calcularTotal();//calculo el total, para luego aplicarle el descuento
@@ -40,6 +40,7 @@ public class VentaServicio {
 				ItemVentaServicio.getInstancia().save(iterador);
 			}
 		}
+		return nuevaVentaId;
 	}
 
 	public List<Venta> obtenerVentas() {

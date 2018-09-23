@@ -1,27 +1,38 @@
 package vista;
 
-import controlador.LoginController;
-
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+
+import modelo.Producto;
+import servicios.ProductoServicio;
+
 public class ProductForm  extends JPanel implements ActionListener {
-    private JTextField txtCodigo;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JTextField txtCodigo;
     private JTextField txtNombre;
-    private LoginController controller;
-    private int usrId;
     private JTextField txtPrecio;
     private JTextField txtCantidad;
     private JTextField txtMarca;
     private JTextField txtModelo;
+    private JTextArea txtDescripcion;
 
     /**
      * Create the panel.
      */
-    public ProductForm(String productId) {
+    public ProductForm(Producto producto) {
         setBackground(UIManager.getColor("Button.shadow"));
-        usrId = -1;
         setLayout(null);
 
         JLabel lblName = new JLabel("Nombre:");
@@ -56,67 +67,67 @@ public class ProductForm  extends JPanel implements ActionListener {
         txtCodigo.setBounds(130, 39, 182, 19);
         add(txtCodigo);
         txtCodigo.setColumns(10);
+        txtCodigo.setText(String.valueOf(producto.getCodigoProducto()));
+        txtCodigo.setEditable(false);
         
         txtNombre = new JTextField();
         txtNombre.setBounds(130, 73, 182, 19);
         add(txtNombre);
         txtNombre.setColumns(10);
+        txtNombre.setText(producto.getNombre());
         
-        JTextArea txtDescripcion = new JTextArea();
+        txtDescripcion = new JTextArea();
         txtDescripcion.setBounds(131, 105, 182, 38);
         add(txtDescripcion);
+        txtDescripcion.setText(producto.getDescripcion());
         
         txtPrecio = new JTextField();
         txtPrecio.setColumns(10);
-        txtPrecio.setBounds(130, 218, 182, 19);
+        txtPrecio.setBounds(130, 157, 182, 19);
         add(txtPrecio);
+        txtPrecio.setText(String.valueOf(producto.getPrecio()));
         
         txtCantidad = new JTextField();
         txtCantidad.setColumns(10);
-        txtCantidad.setBounds(129, 248, 182, 19);
+        txtCantidad.setBounds(130, 188, 182, 19);
         add(txtCantidad);
+        txtCantidad.setText(String.valueOf(producto.getStock()));
         
         txtMarca = new JTextField();
         txtMarca.setColumns(10);
-        txtMarca.setBounds(130, 188, 182, 19);
+        txtMarca.setBounds(130, 218, 182, 19);
         add(txtMarca);
+        txtMarca.setText(producto.getMarca());
         
         txtModelo = new JTextField();
         txtModelo.setColumns(10);
-        txtModelo.setBounds(131, 156, 182, 19);
+        txtModelo.setBounds(130, 247, 182, 19);
         add(txtModelo);
-    }
-
-    public void addNameInfo(String name) {
-        this.txtNombre.setText(name);
-    }
-
-
-
-    public void setUserController(LoginController userController) {
-        this.controller = userController;
-    }
-
-    public void setUsrId(int usrId) {
-        this.usrId = usrId;
+        txtModelo.setText(producto.getModelo());
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
             case "Guardar":
-                boolean saved = this.doSave();
+            	Producto p = new Producto();
+				p.setCodigoProducto(Integer.parseInt(txtCodigo.getText()));
+				p.setNombre(txtNombre.getText());
+				p.setPrecio(Integer.parseInt(txtPrecio.getText()));
+				p.setDescripcion(txtDescripcion.getText());
+				p.setStock(Integer.parseInt(txtCantidad.getText()));
+				p.setMarca(txtMarca.getText());
+				p.setModelo(txtModelo.getText());
+                boolean saved = ProductoServicio.getInstancia().update(p);
                 if (saved) {
-                    System.out.println("Producto Guardado");
-                    //LIMPIAR CAMPOS
+                	JOptionPane.showMessageDialog(null, "Producto actualizado correctamente");
+                }else{
+                	JOptionPane.showMessageDialog(null, "Error al actualizar el producto");
                 }
+                JDialog parentDialog=(JDialog)SwingUtilities.getWindowAncestor(this);
+				parentDialog.dispose();
                 break;
         }
-    }
-
-    private boolean doSave() {
-        return true;
-    }
-    
+    }   
     
 }

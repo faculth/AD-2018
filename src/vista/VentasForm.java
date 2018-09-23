@@ -8,12 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
@@ -133,7 +135,6 @@ public class VentasForm extends JPanel implements ActionListener {
 		cantItems = new JLabel("");
 		cantItems.setBounds(347, 137, 46, 14);
 		add(cantItems);
-
 	}
 	
 	private void setVariables() {
@@ -177,17 +178,30 @@ public class VentasForm extends JPanel implements ActionListener {
 	        break;
 		case "Eliminar Item":
 			int row = table1.getSelectedRow();
-			Producto p = new Producto();
-			p.setCodigoProducto(Integer.parseInt(table1.getValueAt(row, 1).toString()));
-			ItemVenta item = new ItemVenta(p, 0, 0);
-			items.remove(item);
-			tableModel.removeRow(table1.getSelectedRow());
-			setVariables();
+			if(row != -1) {
+				Producto p = new Producto();
+				p.setCodigoProducto(Integer.parseInt(table1.getValueAt(row, 1).toString()));
+				ItemVenta item = new ItemVenta(p, 0, 0);
+				items.remove(item);
+				tableModel.removeRow(table1.getSelectedRow());
+				setVariables();
+			}
 			break;
 		case "Guardar":
-			Usuario usr = LoginController.getUsuarioLogueado();
-			Venta v = new Venta(lblFechaStamp.getText(), usr, cliente, items, Integer.parseInt(txtDescuento.getText()));
-			VentaServicio.getInstancia().generarVenta(v);
+			if(items != null && !items.isEmpty()) {
+				Usuario usr = LoginController.getUsuarioLogueado();
+				Venta v = new Venta(lblFechaStamp.getText(), usr, cliente, items, Integer.parseInt(txtDescuento.getText()));
+				int res = VentaServicio.getInstancia().generarVenta(v);
+				if(res > 0){
+					JOptionPane.showMessageDialog(null, "Venta guardada correctamente", "", JOptionPane.INFORMATION_MESSAGE);
+				}else {
+					JOptionPane.showMessageDialog(null, "Error al guardar venta", "ERROR", JOptionPane.ERROR_MESSAGE);
+				}
+				JDialog parentDialog=(JDialog)SwingUtilities.getWindowAncestor(this);
+				parentDialog.dispose();
+			}else {
+				JOptionPane.showMessageDialog(null, "La venta no tiene items para guardar");
+			}
 			break;
 		}
     }
