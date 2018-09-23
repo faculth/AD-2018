@@ -3,7 +3,6 @@ package persistencia;
 
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
@@ -35,7 +34,7 @@ public class VentaMapper {
 			if(resultado.next()){
 				recuperada = new Venta();
 				recuperada.setNumeroVenta(resultado.getInt(1));
-				recuperada.setFechaVenta(resultado.getDate(2));
+				recuperada.setFechaVenta(resultado.getString(2));
 				recuperada.setTotal(resultado.getFloat(3));
 				recuperada.setCliente(ClienteMapper.getInstancia().getClienteById(resultado.getInt(4)));
 				recuperada.setUsuario(UsuarioMapper.getInstancia().getUsrById(resultado.getInt(5)));
@@ -71,12 +70,9 @@ public class VentaMapper {
 
 	public int insert(Venta v) {
 		try {
-			@SuppressWarnings("unused")
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			String strDate = sdf.format(v.getFechaVenta());
 			PreparedStatement s = con.prepareStatement("INSERT INTO ventas (fecha,total,cliente_dni_cuit,usuario_dni,descuento,envio_id,reclamo_id) values (?,"
 					+ "?,?,?,?,?,?)");
-			s.setString(1, strDate);
+			s.setString(1, v.getFechaVenta());
 			s.setFloat(2, v.getTotal());
 			s.setInt(3, v.getCliente().getDni());
 			s.setInt(4, v.getUsuario().getDni());
@@ -104,7 +100,7 @@ public class VentaMapper {
 	public void update(Venta v) {
 		try {
 			PreparedStatement s = con.prepareStatement("UPDATE ventas set fecha = ?, total = ?, cliente_dni_cuit = ?,usuario_dni = ?,descuento = ?,envido_id = ?, reclamo_id = ? where id_venta = ?");
-			s.setDate(1, (Date) v.getFechaVenta());
+			s.setString(1, v.getFechaVenta());
 			s.setFloat(2, v.getTotal());
 			s.setInt(3, v.getCliente().getDni());
 			s.setInt(4, v.getUsuario().getDni());
@@ -132,7 +128,7 @@ public class VentaMapper {
 			if(resultado.next()){
 				recuperada = new Venta();
 				recuperada.setNumeroVenta(resultado.getInt(1));
-				recuperada.setFechaVenta(resultado.getDate(2));
+				recuperada.setFechaVenta(resultado.getString(2));
 				recuperada.setTotal(resultado.getFloat(3));
 				recuperada.setCliente(ClienteMapper.getInstancia().getClienteById(resultado.getInt(4)));
 				recuperada.setUsuario(UsuarioMapper.getInstancia().getUsrById(resultado.getInt(5)));
@@ -164,7 +160,7 @@ public class VentaMapper {
 			if(resultado.next()){
 				recuperada = new Venta();
 				recuperada.setNumeroVenta(resultado.getInt(1));
-				recuperada.setFechaVenta(resultado.getDate(2));
+				recuperada.setFechaVenta(resultado.getString(2));
 				recuperada.setTotal(resultado.getFloat(3));
 				recuperada.setCliente(ClienteMapper.getInstancia().getClienteById(resultado.getInt(4)));
 				recuperada.setUsuario(UsuarioMapper.getInstancia().getUsrById(resultado.getInt(5)));

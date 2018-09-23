@@ -49,7 +49,15 @@ abstract class ItemPanel extends JPanel implements ActionListener {
 
         //String[] columnNames2 = { "id","UserName", "Email"};
         Object[][] tableData2 = {{}};
-        DefaultTableModel searchModel = new DefaultTableModel(tableData2, getColumnsForList());
+        DefaultTableModel searchModel = new DefaultTableModel(tableData2, getColumnsForList()) {
+ 			private static final long serialVersionUID = 8095720010196161749L;
+
+			@Override
+            public boolean isCellEditable(int row, int column) {
+               //Ninguna celda editable
+               return false;
+            }
+        };
 
 		JPanel PaginationPanel = new JPanel();
 		PaginationPanel.setBounds(12, 624, 822, 45);

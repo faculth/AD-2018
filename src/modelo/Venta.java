@@ -6,15 +6,38 @@ import java.util.List;
 public class Venta {
 	private int numeroVenta;
 	private float total;
-	private Date fechaVenta;
+	private String fechaVenta;
 	private Usuario usuario;
 	private Cliente cliente;
 	private Envio envio;
 	private List <ItemVenta> items;
 	private Reclamo reclamo;
-	private float descuento;
+	private int descuento;
 	
 	public Venta(){}
+
+	public Venta(int numeroVenta, float total, String fechaVenta, Usuario usuario, Cliente cliente, Envio envio,
+			List<ItemVenta> items, Reclamo reclamo, int descuento) {
+		super();
+		this.numeroVenta = numeroVenta;
+		this.total = total;
+		this.fechaVenta = fechaVenta;
+		this.usuario = usuario;
+		this.cliente = cliente;
+		this.envio = envio;
+		this.items = items;
+		this.reclamo = reclamo;
+		this.descuento = descuento;
+	}
+
+	public Venta(String fechaVenta, Usuario usuario, Cliente cliente,	List<ItemVenta> items, int descuento) {
+		super();
+		this.fechaVenta = fechaVenta;
+		this.usuario = usuario;
+		this.cliente = cliente;
+		this.items = items;
+		this.descuento = descuento;
+	}
 
 	public int getNumeroVenta() {
 		return numeroVenta;
@@ -32,11 +55,11 @@ public class Venta {
 		this.total = total;
 	}
 
-	public Date getFechaVenta() {
+	public String getFechaVenta() {
 		return fechaVenta;
 	}
 
-	public void setFechaVenta(Date fechaVenta) {
+	public void setFechaVenta(String fechaVenta) {
 		this.fechaVenta = fechaVenta;
 	}
 
@@ -84,7 +107,7 @@ public class Venta {
 		return descuento;
 	}
 
-	public void setDescuento(float descuento) {
+	public void setDescuento(int descuento) {
 		this.descuento = descuento;
 	}
 	

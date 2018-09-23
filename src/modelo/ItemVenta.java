@@ -7,6 +7,13 @@ public class ItemVenta {
 	private float precioUnit;
 	
 	public ItemVenta(){}
+	
+	public ItemVenta( Producto producto, int cantidad, float precioUnit) {
+		super();
+		this.producto = producto;
+		this.cantidad = cantidad;
+		this.precioUnit = precioUnit;
+	}
 
 	public int getCodItemVenta() {
 		return codItemVenta;
@@ -43,6 +50,31 @@ public class ItemVenta {
 	public void setPrecioUnit(float precioUnit) {
 		this.precioUnit = precioUnit;
 	}
-	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((producto == null) ? 0 : producto.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ItemVenta other = (ItemVenta) obj;
+		if (producto == null) {
+			if (other.producto != null)
+				return false;
+		} else if (!producto.equals(other.producto))
+			return false;
+		return true;
+	}
+
 	
 }

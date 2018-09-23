@@ -16,7 +16,7 @@ public class Clientes extends ItemPanel {
 
 	@Override
     protected String[] getColumnsForList() {
-        return new String[]{"Nombre","dni/cuit","email","telefono", "Particular?"};
+        return new String[]{"Nombre","dni/cuit","email","telefono", "Tipo Cliente"};
     }
 
     @Override
@@ -34,11 +34,14 @@ public class Clientes extends ItemPanel {
                 int input = JOptionPane.showConfirmDialog(null,"Borrar cliente?");
             break;
             case "Buscar":
+            	if(search.getText().isEmpty()) {
+            		break;
+            	}
                 Cliente cl = ClienteServicio.getInstancia().buscarCliente(Integer.parseInt(search.getText()));
                 DefaultTableModel tableModel = (DefaultTableModel) table.getModel();//.setValueAt("PRUEBA", 0, 2);
                 tableModel.setRowCount(0);
                 if(cl != null) {
-	                tableModel.addRow(new Object[]{cl.getNombre()+" "+cl.getApellido(), cl.getDni(), cl.getEmail(), cl.getEmail(), cl.getTelefono(), cl.getTipoCliente()});
+	                tableModel.addRow(new Object[]{cl.getNombre()+" "+cl.getApellido(), cl.getDni(), cl.getEmail(), cl.getTelefono(), cl.getTipoCliente()});
                 }else {
                 	JOptionPane.showMessageDialog(null, "Busqueda sin resultados");
                 }

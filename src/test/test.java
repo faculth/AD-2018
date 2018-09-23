@@ -114,7 +114,7 @@ public class test {
 		
 		ventaNueva.setCliente(c);
 		ventaNueva.setDescuento(15);
-		ventaNueva.setFechaVenta(new Date());
+		//ventaNueva.setFechaVenta(new Date());
 		ventaNueva.setUsuario(u);
 		
 		VentaServicio.getInstancia().generarVenta(ventaNueva);

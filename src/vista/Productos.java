@@ -42,6 +42,9 @@ public class Productos extends ItemPanel {
                 onItemReporte();
                 break;
             case "Buscar":
+            	if(search.getText().isEmpty()) {
+            		break;
+            	}
                 Producto p = ProductoServicio.getInstancia().buscarProducto(Integer.parseInt(search.getText()));
                 DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
                 tableModel.setRowCount(0);

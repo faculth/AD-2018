@@ -68,4 +68,29 @@ public class Producto {
 	public void actualizarStock(int cantidad) {
 		this.stock += cantidad;
 	}
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + codigoProducto;
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Producto other = (Producto) obj;
+		if (codigoProducto != other.codigoProducto)
+			return false;
+		return true;
+	}
+
 }
