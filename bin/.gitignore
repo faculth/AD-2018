@@ -1,12 +1,6 @@
-<<<<<<< HEAD
 /persistencia/
-/misc/
-=======
-
->>>>>>> branch 'master' of https://github.com/faculth/SIP1
-/vista/
-/test/
 /servicios/
+/test/
+/vista/
 /controlador/
-/Launcher/
 /modelo/
