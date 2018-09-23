@@ -1,6 +1,7 @@
 package vista;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -8,6 +9,7 @@ import javax.swing.table.DefaultTableModel;
 
 import modelo.Cliente;
 import modelo.Venta;
+import persistencia.VentaMapper;
 import servicios.ClienteServicio;
 import servicios.VentaServicio;
 
@@ -33,7 +35,7 @@ public class Ventas extends ItemPanel {
             break;
             case "Buscar":
             	if(search.getText().isEmpty()) {
-            		cargarVentas();
+            		cargarVentas(0,30);
             		break;
             	}
                 Venta v = VentaServicio.getInstancia().buscarVenta(Integer.parseInt(search.getText()));
@@ -57,12 +59,38 @@ public class Ventas extends ItemPanel {
         actionButton1.addActionListener(this);
         actionButton2.addActionListener(this);
         actionButton5.addActionListener(this);
-        cargarVentas();
+        
+        itemsCount = VentaMapper.getInstancia().getCantVentas();
+        setPagesInfo();
+        
+        back.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(currentPage > 0){
+					currentPage--;
+					cargarVentas(currentPage*30, 30);
+					setPagesInfo();
+				}
+			}
+		});
+        
+        next.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(((currentPage+1) *30) < itemsCount){
+					currentPage++;
+					cargarVentas(currentPage*30, 30);
+					setPagesInfo();
+				}
+			}
+		});
+        
+        cargarVentas(0,30);
     }
     
-    private void cargarVentas() {
+    private void cargarVentas(int inicio, int fin) {
     	searchModel.setRowCount(0);
-        List<Venta> ventas = VentaServicio.getInstancia().obtenerVentas();
+        List<Venta> ventas = VentaServicio.getInstancia().obtenerVentas(inicio, fin);
         ventas.forEach(v -> agregarVentaTabla(v));
     }
     

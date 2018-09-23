@@ -83,7 +83,7 @@ public class test {
 	}
 
 	private static void listarVentas() {
-		VentaServicio.getInstancia().obtenerVentas();
+		VentaServicio.getInstancia().obtenerVentas(0,30);
 		
 	}
 

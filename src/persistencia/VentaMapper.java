@@ -124,12 +124,14 @@ public class VentaMapper {
 		}
 	}
 
-	public List<Venta> getAll() {
+	public List<Venta> getAll(int inicio, int fin) {
 		List <Venta> ventas = new ArrayList<Venta>();
 		Venta recuperada = null;
 		ResultSet resultado = null;
 		try {
-			PreparedStatement s = con.prepareStatement("SELECT * FROM ventas");
+			PreparedStatement s = con.prepareStatement("SELECT * FROM ventas ORDER BY id_venta OFFSET ? ROWS FETCH NEXT ? ROWS ONLY");
+			s.setInt(1, inicio);
+			s.setInt(2, fin);
 			resultado = s.executeQuery();
 			while(resultado.next()){
 				recuperada = new Venta();
@@ -137,8 +139,8 @@ public class VentaMapper {
 				recuperada.setFechaVenta(resultado.getString(2));
 				recuperada.setTotal(resultado.getFloat(3));
 				recuperada.setCliente(ClienteMapper.getInstancia().getClienteById(resultado.getInt(4)));
-				recuperada.setUsuario(UsuarioMapper.getInstancia().getUsrById(resultado.getInt(5)));
-				recuperada.setItems(ItemVentaMapper.getInstancia().recuperarItemsVenta(resultado.getInt(1)));
+				//recuperada.setUsuario(UsuarioMapper.getInstancia().getUsrById(resultado.getInt(5)));
+				//recuperada.setItems(ItemVentaMapper.getInstancia().recuperarItemsVenta(resultado.getInt(1)));
 				recuperada.setDescuento(resultado.getInt(6));
 				if(resultado.getInt("envio_id") > 0){
 					recuperada.setEnvio(EnvioMapper.getInstancia().getEnvioById(resultado.getInt(7)));
@@ -152,6 +154,20 @@ public class VentaMapper {
 			e.printStackTrace();
 		}
 		return ventas;
+	}
+	
+	public int getCantVentas() {
+		try {
+			PreparedStatement s = con.prepareStatement("SELECT COUNT(*) FROM ventas");
+			ResultSet resultado = null;
+			resultado = s.executeQuery();
+			if(resultado.next()){
+				return resultado.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1;
 	}
 
 	public List<Venta> getReport(String fechaDesde, String fechaHasta) {

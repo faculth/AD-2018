@@ -39,3 +39,107 @@ GO
 INSERT INTO [dbo].[productos]([nombre], [precio], [descripcion], [unidades_disponibles], [marca], [modelo])
   VALUES('Espejo retrovisor', 3000, 'Esperjo retrovisor Fiat Palio pack2', 5, 'Fiat', '2017')
 GO
+
+INSERT INTO [dbo].[productos]([nombre], [precio], [descripcion], [unidades_disponibles], [marca], [modelo])
+  VALUES('Luneta', 5750, 'Luneta audi', 4, 'Audi', '2015')
+GO
+INSERT INTO [dbo].[productos]([nombre], [precio], [descripcion], [unidades_disponibles], [marca], [modelo])
+  VALUES('Faro Trasero', 3000, 'Faro trasero', 1, 'BMW', '2011')
+GO
+INSERT INTO [dbo].[productos]([nombre], [precio], [descripcion], [unidades_disponibles], [marca], [modelo])
+  VALUES('Faro delantero', 4000, 'Acrilico delantero BMW', 2, 'BWM', '2012')
+GO
+INSERT INTO [dbo].[productos]([nombre], [precio], [descripcion], [unidades_disponibles], [marca], [modelo])
+  VALUES('Espejo retrovisor', 3000, 'Esperjo retrovisor Fiat', 5, 'Fiat', '2017')
+GO
+
+INSERT INTO [dbo].[productos]([nombre], [precio], [descripcion], [unidades_disponibles], [marca], [modelo])
+  VALUES('Luneta', 5750, 'Luneta audi', 4, 'Audi', '2010')
+GO
+INSERT INTO [dbo].[productos]([nombre], [precio], [descripcion], [unidades_disponibles], [marca], [modelo])
+  VALUES('Faro Trasero', 3000, 'Faro trasero', 1, 'BMW', '2010')
+GO
+INSERT INTO [dbo].[productos]([nombre], [precio], [descripcion], [unidades_disponibles], [marca], [modelo])
+  VALUES('Faro delantero', 4000, 'Acrilico delantero BMW', 2, 'BWM', '2010')
+GO
+INSERT INTO [dbo].[productos]([nombre], [precio], [descripcion], [unidades_disponibles], [marca], [modelo])
+  VALUES('Espejo retrovisor', 3000, 'Esperjo retrovisor Fiat', 5, 'Fiat', '2010')
+GO
+
+INSERT INTO [dbo].[productos]([nombre], [precio], [descripcion], [unidades_disponibles], [marca], [modelo])
+  VALUES('Luneta', 5750, 'Luneta audi', 4, 'Audi', '2011')
+GO
+INSERT INTO [dbo].[productos]([nombre], [precio], [descripcion], [unidades_disponibles], [marca], [modelo])
+  VALUES('Faro Trasero', 3000, 'Faro trasero', 1, 'BMW', '2011')
+GO
+INSERT INTO [dbo].[productos]([nombre], [precio], [descripcion], [unidades_disponibles], [marca], [modelo])
+  VALUES('Faro delantero', 4000, 'Acrilico delantero BMW', 2, 'BWM', '2011')
+GO
+INSERT INTO [dbo].[productos]([nombre], [precio], [descripcion], [unidades_disponibles], [marca], [modelo])
+  VALUES('Espejo retrovisor', 3000, 'Esperjo retrovisor Fiat', 5, 'Fiat', '2011')
+GO
+
+INSERT INTO [dbo].[productos]([nombre], [precio], [descripcion], [unidades_disponibles], [marca], [modelo])
+  VALUES('Luneta', 5750, 'Luneta audi', 4, 'Audi', '2012')
+GO
+INSERT INTO [dbo].[productos]([nombre], [precio], [descripcion], [unidades_disponibles], [marca], [modelo])
+  VALUES('Faro Trasero', 3000, 'Faro trasero', 1, 'BMW', '2012')
+GO
+INSERT INTO [dbo].[productos]([nombre], [precio], [descripcion], [unidades_disponibles], [marca], [modelo])
+  VALUES('Faro delantero', 4000, 'Acrilico delantero BMW', 2, 'BWM', '2012')
+GO
+INSERT INTO [dbo].[productos]([nombre], [precio], [descripcion], [unidades_disponibles], [marca], [modelo])
+  VALUES('Espejo retrovisor', 3000, 'Esperjo retrovisor Fiat', 5, 'Fiat', '2012')
+GO
+
+INSERT INTO [dbo].[productos]([nombre], [precio], [descripcion], [unidades_disponibles], [marca], [modelo])
+  VALUES('Luneta', 5750, 'Luneta audi', 4, 'Audi', '2013')
+GO
+INSERT INTO [dbo].[productos]([nombre], [precio], [descripcion], [unidades_disponibles], [marca], [modelo])
+  VALUES('Faro Trasero', 3000, 'Faro trasero', 1, 'BMW', '2013')
+GO
+INSERT INTO [dbo].[productos]([nombre], [precio], [descripcion], [unidades_disponibles], [marca], [modelo])
+  VALUES('Faro delantero', 4000, 'Acrilico delantero BMW', 2, 'BWM', '2013')
+GO
+INSERT INTO [dbo].[productos]([nombre], [precio], [descripcion], [unidades_disponibles], [marca], [modelo])
+  VALUES('Espejo retrovisor', 3000, 'Esperjo retrovisor Fiat', 5, 'Fiat', '2013')
+GO
+
+INSERT INTO [dbo].[productos]([nombre], [precio], [descripcion], [unidades_disponibles], [marca], [modelo])
+  VALUES('Luneta', 5750, 'Luneta audi', 4, 'Audi', '2015')
+GO
+INSERT INTO [dbo].[productos]([nombre], [precio], [descripcion], [unidades_disponibles], [marca], [modelo])
+  VALUES('Faro Trasero', 3000, 'Faro trasero', 1, 'BMW', '2015')
+GO
+INSERT INTO [dbo].[productos]([nombre], [precio], [descripcion], [unidades_disponibles], [marca], [modelo])
+  VALUES('Faro delantero', 4000, 'Acrilico delantero BMW', 2, 'BWM', '2015')
+GO
+INSERT INTO [dbo].[productos]([nombre], [precio], [descripcion], [unidades_disponibles], [marca], [modelo])
+  VALUES('Espejo retrovisor', 3000, 'Esperjo retrovisor Fiat', 5, 'Fiat', '2015')
+GO
+
+INSERT INTO [dbo].[productos]([nombre], [precio], [descripcion], [unidades_disponibles], [marca], [modelo])
+  VALUES('Luneta', 5750, 'Luneta audi', 4, 'Audi', '2016')
+GO
+INSERT INTO [dbo].[productos]([nombre], [precio], [descripcion], [unidades_disponibles], [marca], [modelo])
+  VALUES('Faro Trasero', 3000, 'Faro trasero', 1, 'BMW', '2016')
+GO
+INSERT INTO [dbo].[productos]([nombre], [precio], [descripcion], [unidades_disponibles], [marca], [modelo])
+  VALUES('Faro delantero', 4000, 'Acrilico delantero BMW', 2, 'BWM', '2016')
+GO
+INSERT INTO [dbo].[productos]([nombre], [precio], [descripcion], [unidades_disponibles], [marca], [modelo])
+  VALUES('Espejo retrovisor', 3000, 'Esperjo retrovisor Fiat', 5, 'Fiat', '2016')
+GO
+
+INSERT INTO [dbo].[productos]([nombre], [precio], [descripcion], [unidades_disponibles], [marca], [modelo])
+  VALUES('Luneta', 5750, 'Luneta audi', 4, 'Audi', '2009')
+GO
+INSERT INTO [dbo].[productos]([nombre], [precio], [descripcion], [unidades_disponibles], [marca], [modelo])
+  VALUES('Faro Trasero', 3000, 'Faro trasero', 1, 'BMW', '2009')
+GO
+INSERT INTO [dbo].[productos]([nombre], [precio], [descripcion], [unidades_disponibles], [marca], [modelo])
+  VALUES('Faro delantero', 4000, 'Acrilico delantero BMW', 2, 'BWM', '2009')
+GO
+INSERT INTO [dbo].[productos]([nombre], [precio], [descripcion], [unidades_disponibles], [marca], [modelo])
+  VALUES('Espejo retrovisor', 3000, 'Esperjo retrovisor Fiat', 5, 'Fiat', '2009')
+GO

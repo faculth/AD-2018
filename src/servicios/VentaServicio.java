@@ -43,9 +43,9 @@ public class VentaServicio {
 		return nuevaVentaId;
 	}
 
-	public List<Venta> obtenerVentas() {
+	public List<Venta> obtenerVentas(int inicio, int fin) {
 		List <Venta> ventas = new ArrayList<Venta>();
-		ventas = VentaMapper.getInstancia().getAll();
+		ventas = VentaMapper.getInstancia().getAll(inicio, fin);
 		return ventas;
 	}
 

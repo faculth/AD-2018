@@ -94,7 +94,7 @@ public class Productos extends ItemPanel {
 			public void actionPerformed(ActionEvent e) {
 				if(currentPage > 0){
 					currentPage--;
-					cargarProductos(currentPage*30,currentPage *30 +30);
+					cargarProductos(currentPage*30, 30);
 					setPagesInfo();
 				}
 			}
@@ -105,7 +105,7 @@ public class Productos extends ItemPanel {
 			public void actionPerformed(ActionEvent e) {
 				if(((currentPage+1) *30) < itemsCount){
 					currentPage++;
-					cargarProductos(currentPage*30,currentPage *30 +30);
+					cargarProductos(currentPage*30, 0);
 					setPagesInfo();
 				}
 			}
