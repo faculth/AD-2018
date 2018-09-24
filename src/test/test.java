@@ -18,7 +18,6 @@ import modelo.Venta;
 import persistencia.VentaMapper;
 import servicios.ClienteServicio;
 import servicios.EnvioServicio;
-import servicios.ExportExcel;
 import servicios.ProductoServicio;
 import servicios.UsuarioServicio;
 import servicios.VentaServicio;
@@ -75,7 +74,7 @@ public class test {
 			 scontador = String.valueOf(contador);
 			 
 		 }
-		 ExportExcel.exportExcel("DatosVentas",data,"Excel.xlsx");
+		 //ExportExcel.exportExcel("DatosVentas",data,"Excel.xlsx");
 	}
 
 	private static void listarEnvios() {
@@ -83,7 +82,7 @@ public class test {
 	}
 
 	private static void listarVentas() {
-		VentaServicio.getInstancia().obtenerVentas();
+		//VentaServicio.getInstancia().obtenerVentas();
 		
 	}
 
