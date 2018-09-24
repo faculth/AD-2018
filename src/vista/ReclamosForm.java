@@ -1,23 +1,37 @@
 package vista;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-public class ReclamosForm extends JPanel{
+import modelo.Envio;
+import modelo.Reclamo;
+import modelo.Venta;
+import persistencia.EnvioMapper;
+import persistencia.ReclamoMapper;
+
+public class ReclamosForm extends JPanel implements ActionListener{
     
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	private JComboBox<String> comboBox;
+	private Venta venta;
 	/**
      * Create the panel.
      */
-    public ReclamosForm() {
+    public ReclamosForm(Venta v) {
+    	String idVenta = String.valueOf(v.getNumeroVenta());
         setBackground(UIManager.getColor("Button.shadow"));
         setLayout(null);
         
@@ -37,13 +51,32 @@ public class ReclamosForm extends JPanel{
         txtDescripcion.setBounds(382, 111, 176, 72);
         add(txtDescripcion);
         
-        JLabel lblNewLabel = new JLabel("1");
+        JLabel lblNewLabel = new JLabel(idVenta);
         lblNewLabel.setBounds(382, 46, 70, 15);
         add(lblNewLabel);
-        
-        JComboBox comboBox = new JComboBox();
-        comboBox.setModel(new DefaultComboBoxModel(new String[] {"En proceso", "Resuelto"}));
+
+        comboBox = new JComboBox<String>();
+        comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"En proceso", "Resuelto"}));
         comboBox.setBounds(380, 197, 178, 24);
         add(comboBox);
     }
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		switch (e.getActionCommand()) {
+        case "Guardar":
+        	if(comboBox.getSelectedItem().toString().equals("En proceso")) {
+            	JOptionPane.showMessageDialog(null, "Reclamo registrado correctamente");
+        	}else{
+        		Reclamo reclamo = new Reclamo();
+        		reclamo.setEstado("Resuelto");
+        		reclamo.setDescripcion("Reclamo resuelto");
+            	//EnvioMapper.getInstancia().update(envio);
+            	JOptionPane.showMessageDialog(null, "Envio modificado correctamente");
+        	}
+        	JDialog parentDialog=(JDialog)SwingUtilities.getWindowAncestor(this);
+			parentDialog.dispose();
+        	break;
+        }
+	}
 }

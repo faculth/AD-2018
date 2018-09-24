@@ -1,6 +1,10 @@
 package vista;
 
 import javax.swing.*;
+
+import modelo.Venta;
+import servicios.VentaServicio;
+
 import java.awt.event.ActionEvent;
 
 public class Reclamos extends ItemPanel {
@@ -42,9 +46,20 @@ public class Reclamos extends ItemPanel {
 
     private void onNuevoReclamo() {
         String input = JOptionPane.showInputDialog("Ingrese Id de venta: ");
-        ReclamosForm form  = new ReclamosForm();
-        FormDialog formCreation = new FormDialog(form);
-        formCreation.setLocationRelativeTo(null);
-        formCreation.setVisible(true);
+        Venta v = null;
+        if(input != null && !input.isEmpty()){
+        	v = VentaServicio.getInstancia().buscarVenta(Integer.parseInt(input));
+        	if(v.getReclamo() != null){
+        			JOptionPane.showMessageDialog(null, "Esta venta ya tiene un reclamo registrado");
+        		}else{
+        			 ReclamosForm form  = new ReclamosForm(v);
+        			 FormDialog formCreation = new FormDialog(form);
+        		     formCreation.setLocationRelativeTo(null);
+        		     formCreation.setVisible(true);
+        		}
+        }
+        else{
+        	JOptionPane.showMessageDialog(null, "No existe venta con ese Id");
+        }
     }
 }
