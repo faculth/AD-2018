@@ -44,12 +44,14 @@ public class ClienteMapper {
 		return recuperado;
 	}
 	
-	public List<Cliente> getAll(){
+	public List<Cliente> getAll(int inicio, int fin){
 		List <Cliente> clientes = new ArrayList<Cliente>();
 		Cliente cli = null;
 		ResultSet resultado = null;
 		try {
-			PreparedStatement s = con.prepareStatement("SELECT * FROM CLIENTES");
+			PreparedStatement s = con.prepareStatement("SELECT * FROM clientes ORDER BY dni_cuit OFFSET ? ROWS FETCH NEXT ? ROWS ONLY");
+			s.setInt(1, inicio);
+			s.setInt(2, fin);
 			resultado = s.executeQuery();
 			while(resultado.next()){
 				cli = new Cliente();
@@ -73,5 +75,20 @@ public class ClienteMapper {
 			return "Particular";
 		else
 			return "Compañia de seguro";
+	}
+
+	public int getCantCliente() {
+		int valor = 0;
+		ResultSet resultado = null;
+		try {
+			PreparedStatement s = con.prepareStatement("SELECT count(*) as cantidad FROM CLIENTES");
+			resultado = s.executeQuery();
+			while(resultado.next()){
+				valor = resultado.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return valor;
 	}
 }

@@ -37,6 +37,7 @@ public class Usuarios extends ItemPanel {
         actionButton2.setText("Modificar");
         actionButton3.setText("Eliminar");
         actionButton4.setVisible(false);
+        actionButton6.setVisible(false);
         lblSearch.setText("Buscar por DNI: ");
         actionButton1.addActionListener(this);
         actionButton2.addActionListener(this);

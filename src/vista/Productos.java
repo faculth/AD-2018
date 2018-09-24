@@ -28,7 +28,7 @@ public class Productos extends ItemPanel {
         switch (e.getActionCommand()) {
             case "Agregar":
                 //String input = JOptionPane.showInputDialog("Ingrese codigo de producto: ");
-                ProductForm form = new ProductForm(null);
+                ProductForm form = new ProductForm(null,null);
                 FormDialog formCreation = new FormDialog(form);
                 formCreation.setTitle("Alta de productos");
                 formCreation.setSize(400, 380);
@@ -39,9 +39,21 @@ public class Productos extends ItemPanel {
                 String input2 = JOptionPane.showInputDialog("Ingrese codigo de producto: ");
                 if(input2 != null && !input2.isEmpty()){
                 	Producto p = ProductoServicio.getInstancia().buscarProducto(Integer.parseInt(input2));
-	                ProductForm form2 = new ProductForm(p);
+	                ProductForm form2 = new ProductForm(p,"Modificar");
 	                FormDialog formCreation2 = new FormDialog(form2);
 	                formCreation2.setTitle("Modificación de productos");
+	                formCreation2.setSize(400, 380);
+	                formCreation2.setLocationRelativeTo(null);
+	                formCreation2.setVisible(true);
+                }
+                break;
+            case "Actualizar Stock":
+            		   input2 = JOptionPane.showInputDialog("Ingrese codigo de producto: ");
+                if(input2 != null && !input2.isEmpty()){
+                	Producto p = ProductoServicio.getInstancia().buscarProducto(Integer.parseInt(input2));
+	                ProductForm form2 = new ProductForm(p,"Stock");
+	                FormDialog formCreation2 = new FormDialog(form2);
+	                formCreation2.setTitle("Actualizacion de Stock");
 	                formCreation2.setSize(400, 380);
 	                formCreation2.setLocationRelativeTo(null);
 	                formCreation2.setVisible(true);
@@ -79,12 +91,14 @@ public class Productos extends ItemPanel {
         actionButton2.setText("Modificar");
         actionButton3.setText("Eliminar");
         actionButton4.setText("Generar reporte");
-        lblSearch.setText("Buscar por Id: ");
+        actionButton6.setText("Actualizar Stock");
+        lblSearch.setText("Buscar por Codigo: ");
         actionButton1.addActionListener(this);
         actionButton2.addActionListener(this);
         actionButton3.addActionListener(this);
         actionButton4.addActionListener(this);
         actionButton5.addActionListener(this);
+        actionButton6.addActionListener(this);
         
         itemsCount = ProductoServicio.getInstancia().getCantProd();
         setPagesInfo();
@@ -105,7 +119,7 @@ public class Productos extends ItemPanel {
 			public void actionPerformed(ActionEvent e) {
 				if(((currentPage+1) *30) < itemsCount){
 					currentPage++;
-					cargarProductos(currentPage*30, 0);
+					cargarProductos(currentPage*30, 30);
 					setPagesInfo();
 				}
 			}

@@ -31,7 +31,7 @@ public class ProductForm  extends JPanel implements ActionListener {
     /**
      * Create the panel.
      */
-    public ProductForm(Producto producto) {
+    public ProductForm(Producto producto,String accion) {
         setBackground(UIManager.getColor("Button.shadow"));
         setLayout(null);
 
@@ -69,41 +69,63 @@ public class ProductForm  extends JPanel implements ActionListener {
         txtCodigo.setColumns(10);
         txtCodigo.setText(String.valueOf(producto.getCodigoProducto()));
         txtCodigo.setEditable(false);
+        if(accion != null && accion.equals("Stock")){
+        	txtCodigo.setEditable(false);
+        }
         
         txtNombre = new JTextField();
         txtNombre.setBounds(130, 73, 182, 19);
         add(txtNombre);
         txtNombre.setColumns(10);
         txtNombre.setText(producto.getNombre());
+        if(accion != null && accion.equals("Stock")){
+        	txtNombre.setEditable(false);
+        }
         
         txtDescripcion = new JTextArea();
         txtDescripcion.setBounds(131, 105, 182, 38);
         add(txtDescripcion);
         txtDescripcion.setText(producto.getDescripcion());
+        if(accion != null && accion.equals("Stock")){
+        	txtDescripcion.setEditable(false);
+        }
         
         txtPrecio = new JTextField();
         txtPrecio.setColumns(10);
         txtPrecio.setBounds(130, 157, 182, 19);
         add(txtPrecio);
         txtPrecio.setText(String.valueOf(producto.getPrecio()));
+        if(accion != null && accion.equals("Stock")){
+        	txtPrecio.setEditable(false);
+        }
         
         txtCantidad = new JTextField();
         txtCantidad.setColumns(10);
         txtCantidad.setBounds(130, 188, 182, 19);
         add(txtCantidad);
         txtCantidad.setText(String.valueOf(producto.getStock()));
+        if(accion != null && accion.equals("Modificar")){
+        	txtCantidad.setEditable(false);
+        }
         
         txtMarca = new JTextField();
         txtMarca.setColumns(10);
         txtMarca.setBounds(130, 218, 182, 19);
         add(txtMarca);
         txtMarca.setText(producto.getMarca());
+        if(accion != null && accion.equals("Stock")){
+        	txtMarca.setEditable(false);
+        }
+        
         
         txtModelo = new JTextField();
         txtModelo.setColumns(10);
         txtModelo.setBounds(130, 247, 182, 19);
         add(txtModelo);
         txtModelo.setText(producto.getModelo());
+        if(accion != null && accion.equals("Stock")){
+        	txtModelo.setEditable(false);
+        }
     }
 
     @Override

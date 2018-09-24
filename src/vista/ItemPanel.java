@@ -28,6 +28,7 @@ abstract class ItemPanel extends JPanel implements ActionListener {
     protected JButton actionButton3;
     protected JButton actionButton4;
     protected JButton actionButton5;
+    protected JButton actionButton6;
     private JLabel lblNewLabel_1;
     protected JLabel lblSearch;
     protected JScrollPane scrollPane;
@@ -46,7 +47,7 @@ abstract class ItemPanel extends JPanel implements ActionListener {
 		setLayout(null);
 		
 		topPanel = new JPanel();
-		topPanel.setBounds(12, 45, 822, 45);
+		topPanel.setBounds(12, 38, 822, 64);
 		add(topPanel);
         layout  = new SpringLayout();
         topPanel.setLayout(layout);
@@ -123,6 +124,13 @@ abstract class ItemPanel extends JPanel implements ActionListener {
 		actionButton5.setText("Buscar");
 		layout.putConstraint(SpringLayout.WEST, actionButton5, 0, SpringLayout.EAST, search);
 		topPanel.add(actionButton5);
+		
+		actionButton6 = new JButton("Action6");
+		layout.putConstraint(SpringLayout.NORTH, actionButton6, 8, SpringLayout.SOUTH, actionButton2);
+		layout.putConstraint(SpringLayout.WEST, actionButton6, 0, SpringLayout.WEST, actionButton2);
+		layout.putConstraint(SpringLayout.SOUTH, actionButton6, 31, SpringLayout.SOUTH, actionButton1);
+		layout.putConstraint(SpringLayout.EAST, actionButton6, 0, SpringLayout.EAST, actionButton3);
+		topPanel.add(actionButton6);
 
 
 		configureActions();
@@ -143,5 +151,4 @@ abstract class ItemPanel extends JPanel implements ActionListener {
 	protected void setPagesInfo(){
 		lblPagination.setText(String.valueOf(1 + currentPage*30) +" - "+ String.valueOf(currentPage *30 +30) + " de " + itemsCount);
 	}
-
 }

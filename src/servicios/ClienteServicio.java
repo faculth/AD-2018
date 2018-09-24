@@ -20,9 +20,14 @@ public class ClienteServicio {
 		return c;
 	}
 	
-	public List<Cliente> obtenerClientes(){
+	public List<Cliente> obtenerClientes(int inicio,int fin){
 		List <Cliente> clientes = null;
-		clientes = ClienteMapper.getInstancia().getAll();
+		clientes = ClienteMapper.getInstancia().getAll(inicio,fin);
 		return clientes;
+	}
+
+	public int getCanClientes() {
+		int valor = ClienteMapper.getInstancia().getCantCliente();
+		return valor;
 	}
 }

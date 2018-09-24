@@ -1,6 +1,7 @@
 package vista;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -35,7 +36,7 @@ public class Clientes extends ItemPanel {
             break;
             case "Buscar":
             	if(search.getText().isEmpty()) {
-            		cargarClientes();
+            		cargarClientes(0,30);
             		break;
             	}
                 Cliente cl = ClienteServicio.getInstancia().buscarCliente(Integer.parseInt(search.getText()));
@@ -55,17 +56,43 @@ public class Clientes extends ItemPanel {
         actionButton2.setText("Modificar");
         actionButton3.setText("Eliminar");
         actionButton4.setVisible(false);
+        actionButton6.setVisible(false);
         lblSearch.setText("Buscar por DNI/CUIT: ");
         actionButton1.addActionListener(this);
         actionButton2.addActionListener(this);
         actionButton3.addActionListener(this);
         actionButton5.addActionListener(this);
-        cargarClientes();
+        itemsCount = ClienteServicio.getInstancia().getCanClientes();
+        
+        setPagesInfo();
+        
+        back.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(currentPage > 0){
+					currentPage--;
+					cargarClientes(currentPage*30, 30);
+					setPagesInfo();
+				}
+			}
+		});
+        
+        next.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(((currentPage+1) *30) < itemsCount){
+					currentPage++;
+					cargarClientes(currentPage*30, 30);
+					setPagesInfo();
+				}
+			}
+		});
+        cargarClientes(0,30);
     }
     
-    private void cargarClientes() {
+    private void cargarClientes(int inicio, int fin) {
     	searchModel.setRowCount(0);
-    	List<Cliente> clientes = ClienteServicio.getInstancia().obtenerClientes();
+    	List<Cliente> clientes = ClienteServicio.getInstancia().obtenerClientes(inicio,fin);
         clientes.forEach(c -> agregarClienteTabla(c));
     }
     
