@@ -1,6 +1,9 @@
+/Launcher/
+/controlador/
+/db/
+/misc/
+/modelo/
 /persistencia/
 /servicios/
 /test/
 /vista/
-/controlador/
-/modelo/
