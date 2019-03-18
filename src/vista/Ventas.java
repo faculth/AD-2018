@@ -27,7 +27,7 @@ public class Ventas extends ItemPanel {
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
-            case "Nueva":
+            case "Nueva Venta":
                 onNuevaVenta();
             break;
             case "Generar Reporte":
@@ -51,7 +51,7 @@ public class Ventas extends ItemPanel {
     }
 
     protected void configureActions() {
-        actionButton1.setText("Nueva");
+        actionButton1.setText("Nueva Venta");
         actionButton2.setText("Generar Reporte");
         actionButton3.setVisible(false);
         actionButton4.setVisible(false);

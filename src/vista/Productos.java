@@ -27,7 +27,6 @@ public class Productos extends ItemPanel {
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
             case "Agregar":
-                //String input = JOptionPane.showInputDialog("Ingrese codigo de producto: ");
                 ProductForm form = new ProductForm(null,null);
                 FormDialog formCreation = new FormDialog(form);
                 formCreation.setTitle("Alta de productos");
@@ -39,24 +38,32 @@ public class Productos extends ItemPanel {
                 String input2 = JOptionPane.showInputDialog("Ingrese codigo de producto: ");
                 if(input2 != null && !input2.isEmpty()){
                 	Producto p = ProductoServicio.getInstancia().buscarProducto(Integer.parseInt(input2));
-	                ProductForm form2 = new ProductForm(p,"Modificar");
-	                FormDialog formCreation2 = new FormDialog(form2);
-	                formCreation2.setTitle("Modificación de productos");
-	                formCreation2.setSize(400, 380);
-	                formCreation2.setLocationRelativeTo(null);
-	                formCreation2.setVisible(true);
+                	if(p != null){
+                		ProductForm form2 = new ProductForm(p,"Modificar");
+    	                FormDialog formCreation2 = new FormDialog(form2);
+    	                formCreation2.setTitle("Modificación de productos");
+    	                formCreation2.setSize(400, 380);
+    	                formCreation2.setLocationRelativeTo(null);
+    	                formCreation2.setVisible(true);
+                	}
+                	else
+                		JOptionPane.showMessageDialog(null, "Busqueda sin resultados.");
                 }
                 break;
             case "Actualizar Stock":
             		   input2 = JOptionPane.showInputDialog("Ingrese codigo de producto: ");
                 if(input2 != null && !input2.isEmpty()){
                 	Producto p = ProductoServicio.getInstancia().buscarProducto(Integer.parseInt(input2));
-	                ProductForm form2 = new ProductForm(p,"Stock");
-	                FormDialog formCreation2 = new FormDialog(form2);
-	                formCreation2.setTitle("Actualizacion de Stock");
-	                formCreation2.setSize(400, 380);
-	                formCreation2.setLocationRelativeTo(null);
-	                formCreation2.setVisible(true);
+                	if(p != null){
+		                ProductForm form2 = new ProductForm(p,"Stock");
+		                FormDialog formCreation2 = new FormDialog(form2);
+		                formCreation2.setTitle("Actualizacion de Stock");
+		                formCreation2.setSize(400, 380);
+		                formCreation2.setLocationRelativeTo(null);
+		                formCreation2.setVisible(true);
+                	}
+                	else
+                        JOptionPane.showMessageDialog(null, "Busqueda sin resultados.");
                 }
                 break;
             case "Generar reporte":
@@ -72,12 +79,10 @@ public class Productos extends ItemPanel {
                 if(p != null) {
                 	agregarProductoTabla(p);
                 }else {
-                	JOptionPane.showMessageDialog(null, "Busqueda sin resultados");
+                	JOptionPane.showMessageDialog(null, "Busqueda sin resultados.");
                 }
             break;
         }
-
-        System.out.println(e.getActionCommand());
     }
 
     @Override

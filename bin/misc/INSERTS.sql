@@ -115,7 +115,7 @@ INSERT INTO [dbo].[productos]([nombre], [precio], [descripcion], [unidades_dispo
   VALUES('Faro delantero', 4000, 'Acrilico delantero BMW', 2, 'BWM', '2015')
 GO
 INSERT INTO [dbo].[productos]([nombre], [precio], [descripcion], [unidades_disponibles], [marca], [modelo])
-  VALUES('Espejo retrovisor', 3000, 'Esperjo retrovisor Fiat', 5, 'Fiat', '2015')
+  VALUES('Espejo retrovisor', 3000, 'Espejo retrovisor Fiat', 5, 'Fiat', '2015')
 GO
 
 INSERT INTO [dbo].[productos]([nombre], [precio], [descripcion], [unidades_disponibles], [marca], [modelo])

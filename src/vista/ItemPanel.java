@@ -132,7 +132,6 @@ abstract class ItemPanel extends JPanel implements ActionListener {
 		layout.putConstraint(SpringLayout.EAST, actionButton6, 0, SpringLayout.EAST, actionButton3);
 		topPanel.add(actionButton6);
 
-
 		configureActions();
 	}
 

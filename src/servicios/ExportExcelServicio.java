@@ -45,7 +45,6 @@ public class ExportExcelServicio {
 			//cerramos el fichero y el libro
 			out.close();
 			libro.close();
-			System.out.println("Excel exportado correctamente\n");
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -76,8 +76,7 @@ public class LoginController implements IController {
     }
     
     public void doExit() {
-        System.out.println("doExit");
-        main.exit();
+    	main.exit();
     }
 
 	public static Usuario getUsuarioLogueado() {

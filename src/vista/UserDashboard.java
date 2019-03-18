@@ -52,6 +52,12 @@ public class UserDashboard extends JPanel implements ActionListener {
 		defaultPanel.setBackground(UIManager.getColor("Button.shadow"));
 		mainPanel.add(defaultPanel, "default");
 
+		Label welcomeMsg = new Label("NG PERGAL S.R.L");
+		welcomeMsg.setFont(new Font("Dialog", Font.BOLD, 19));
+		welcomeMsg.setAlignment(Label.CENTER);
+		welcomeMsg.setBounds(286, 26, 394, 21);
+		add(welcomeMsg);
+		
 		Button productos = new Button("Productos");
 		productos.setBackground(Color.LIGHT_GRAY);
 		productos.addActionListener(this);
@@ -75,13 +81,7 @@ public class UserDashboard extends JPanel implements ActionListener {
 		ventas.setBounds(10, 158, 99, 23);
 		ventas.addActionListener(this);
 		add(ventas);
-		
-		Label welcomeMsg = new Label("NG PERGAL S.R.L");
-		welcomeMsg.setFont(new Font("Dialog", Font.BOLD, 19));
-		welcomeMsg.setAlignment(Label.CENTER);
-		welcomeMsg.setBounds(286, 26, 394, 21);
-		add(welcomeMsg);
-		
+
 		Button envios = new Button("Envios");
 		envios.setBackground(Color.LIGHT_GRAY);
 		envios.setBounds(10, 216, 99, 23);

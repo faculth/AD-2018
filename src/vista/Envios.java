@@ -23,12 +23,11 @@ public class Envios extends ItemPanel {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println(e.getActionCommand());
         switch(e.getActionCommand()) {
-            case "Nuevo":
+            case "Registrar Nuevo Envio":
                 onNewEnvio();
                 break;
-            case "Editar":
+            case "Actualizar Estado de Envio":
             	onEdit();
                 break;
             case "Buscar":
@@ -48,8 +47,8 @@ public class Envios extends ItemPanel {
     }
 
 	protected void configureActions() {
-        actionButton1.setText("Nuevo");
-        actionButton2.setText("Editar");
+        actionButton1.setText("Registrar Nuevo Envio");
+        actionButton2.setText("Actualizar Estado de Envio");
         actionButton3.setVisible(false);
         actionButton4.setVisible(false);
         actionButton6.setVisible(false);
@@ -57,7 +56,6 @@ public class Envios extends ItemPanel {
         actionButton1.addActionListener(this);
         actionButton2.addActionListener(this);
         actionButton5.addActionListener(this);
-        
         cargarEnvios(0,30);
     }
     

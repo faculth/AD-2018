@@ -23,8 +23,6 @@ public class FormDialog extends JDialog{
 	public FormDialog(JPanel form) {
 		this.setResizable(false);
 		contentPanel = form;
-        System.out.println(form.getWidth());
-        System.out.println( form.getHeight());
 		if (form.getPreferredSize() != null) {
             setSize( getPreferredSize().width + 50 , getPreferredSize().height +50);
         }
