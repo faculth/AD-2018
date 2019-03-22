@@ -5,6 +5,7 @@ import java.util.List;
 import modelo.Envio;
 import modelo.Venta;
 import persistencia.EnvioMapper;
+import persistencia.VentaMapper;
 
 public class EnvioServicio {
 	private static EnvioServicio instancia;
@@ -23,6 +24,10 @@ public class EnvioServicio {
 	public Envio buscarEnvio(int codigoEnvio){
 		Envio env = EnvioMapper.getInstancia().getEnvioById(codigoEnvio);
 		return env;
+	}
+	
+	public int buscarEnvioPorVenta(int ventaID){
+		return VentaMapper.getInstancia().getVentaSinEnvioById(ventaID);
 	}
 	
 	public void save(Envio env){

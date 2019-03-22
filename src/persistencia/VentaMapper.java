@@ -27,7 +27,7 @@ public class VentaMapper {
 		Venta recuperada = null;
 		ResultSet resultado = null;
 		try {
-			PreparedStatement s = con.prepareStatement("SELECT * FROM ventas WHERE id_venta = ?");
+			PreparedStatement s = con.prepareStatement("SELECT * FROM VENTAS WHERE ID_VENTA = ?");
 			s.setInt(1, idVenta);
 			resultado = s.executeQuery();
 			if(resultado.next()){
@@ -39,10 +39,10 @@ public class VentaMapper {
 				recuperada.setUsuario(UsuarioMapper.getInstancia().getUsrById(resultado.getInt(5)));
 				recuperada.setItems(ItemVentaMapper.getInstancia().recuperarItemsVenta(idVenta));
 				recuperada.setDescuento(resultado.getInt(6));
-				if(resultado.getInt("envio_id") > 0){
+				if(resultado.getInt("ENVIO_ID") > 0){
 					recuperada.setEnvio(EnvioMapper.getInstancia().getEnvioById(resultado.getInt(7)));
 				}
-				if(resultado.getInt("reclamo_id") > 0){
+				if(resultado.getInt("RECLAMO_ID") > 0){
 					recuperada.setReclamo(ReclamoMapper.getInstancia().getReclamoById(resultado.getInt(8)));
 				}
 			}
@@ -50,6 +50,38 @@ public class VentaMapper {
 			e.printStackTrace();
 		}
 		return recuperada;
+	}
+	
+	public int getVentaSinEnvioById(int idVenta){
+		int status = 0;
+		ResultSet resultado = null;
+		try {
+			PreparedStatement s = con.prepareStatement("SELECT * FROM VENTAS WHERE ID_VENTA = ? AND (ENVIO_ID IS NULL OR ENVIO_ID = '')");
+			s.setInt(1, idVenta);
+			resultado = s.executeQuery();
+			if(resultado.next()){
+				status = 0;
+			}
+			else{
+				s = con.prepareStatement("SELECT * FROM VENTAS WHERE ID_VENTA = ? AND (ENVIO_ID IS NOT NULL OR ENVIO_ID != '')");
+				s.setInt(1, idVenta);
+				resultado = s.executeQuery();
+				if(resultado.next()){
+					status = 1;
+				}
+				else{
+					s = con.prepareStatement("SELECT * FROM VENTAS WHERE ID_VENTA = ?");
+					s.setInt(1, idVenta);
+					resultado = s.executeQuery();
+					if(!resultado.next()){
+						status = -1;
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return status;
 	}
 	
 	public int obtenerUltimoId(){

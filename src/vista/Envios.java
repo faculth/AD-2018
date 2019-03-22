@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.util.List;
 
 import javax.swing.JOptionPane;
+import javax.swing.SpringLayout;
 
 import modelo.Envio;
 import modelo.Venta;
@@ -11,6 +12,9 @@ import servicios.EnvioServicio;
 import servicios.VentaServicio;
 
 public class Envios extends ItemPanel {
+	public Envios() {
+		super();
+	}
     /**
 	 * 
 	 */
@@ -18,7 +22,7 @@ public class Envios extends ItemPanel {
 
 	@Override
     protected String[] getColumnsForList() {
-        return new String[]{"id", "estado"};
+        return new String[]{"ID Envio", "Estado de Envio"};
     }
 
     @Override
@@ -52,10 +56,11 @@ public class Envios extends ItemPanel {
         actionButton3.setVisible(false);
         actionButton4.setVisible(false);
         actionButton6.setVisible(false);
-        lblSearch.setText("Buscar por Id: ");
+        layout.putConstraint(SpringLayout.EAST, search, 100, SpringLayout.EAST, actionButton4);
         actionButton1.addActionListener(this);
         actionButton2.addActionListener(this);
         actionButton5.addActionListener(this);
+        lblSearch.setText("Buscar por Id: ");
         cargarEnvios(0,30);
     }
     
@@ -96,17 +101,25 @@ public class Envios extends ItemPanel {
     }
     
 	private void onEdit() {
+        int status = 0;
         String input = JOptionPane.showInputDialog("Ingrese Id de venta: ");
         if(input != null && !input.isEmpty()){
-        	Venta v = VentaServicio.getInstancia().buscarVenta(Integer.parseInt(input));
-        	if(v != null && v.getEnvio() != null){
-		        EnviosForm form  = new EnviosForm(v);
-		        FormDialog formCreation = new FormDialog(form);
-		        formCreation.setSize(350, 380);
-		        formCreation.setLocationRelativeTo(null);
-		        formCreation.setVisible(true);
-        	}else {
-        		JOptionPane.showMessageDialog(null, "La venta no existe o no tiene envio registrado");
+        	status = EnvioServicio.getInstancia().buscarEnvioPorVenta(Integer.parseInt(input));
+        	if(status == 1){
+        		Venta v = VentaServicio.getInstancia().buscarVenta(Integer.parseInt(input));
+        		if(v != null && v.getEnvio() != null){
+    		        EnviosForm form  = new EnviosForm(v);
+    		        FormDialog formCreation = new FormDialog(form);
+    		        formCreation.setSize(350, 380);
+    		        formCreation.setLocationRelativeTo(null);
+    		        formCreation.setVisible(true);
+        		}
+        	}
+        	else if(status == 0) {
+        		JOptionPane.showMessageDialog(null, "La venta no posee un envio registrado");
+        	}
+        	else if(status == -1){
+        		JOptionPane.showMessageDialog(null, "La venta no existe");
         	}
         }
 	}

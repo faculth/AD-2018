@@ -15,6 +15,7 @@ import javax.swing.UIManager;
 import modelo.Envio;
 import modelo.Venta;
 import persistencia.EnvioMapper;
+import servicios.EnvioServicio;
 
 public class EnviosForm extends JPanel implements ActionListener{
 	    /**
@@ -88,8 +89,8 @@ public class EnviosForm extends JPanel implements ActionListener{
 	        switch (e.getActionCommand()) {
             case "Guardar":
             	if(comboBox.getSelectedItem().toString().equals("Despachado")) {
-	            	EnvioMapper.getInstancia().registrarEnvio(venta);
-	            	JOptionPane.showMessageDialog(null, "Envio registrado correctamente");
+        			EnvioMapper.getInstancia().registrarEnvio(venta);
+        			JOptionPane.showMessageDialog(null, "Envio registrado correctamente");
             	}else{
             		Envio envio = new Envio();
             		envio.setNumEnvio(venta.getEnvio().getNumEnvio());

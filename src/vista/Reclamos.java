@@ -15,7 +15,7 @@ public class Reclamos extends ItemPanel {
 
 	@Override
     protected String[] getColumnsForList() {
-        return new String[]{"id", "fecha", "id_venta", "Estado"};
+        return new String[]{"Id Reclamo", "Fecha", "Id Venta", "Estado"};
     }
 
     @Override

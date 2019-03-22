@@ -21,7 +21,7 @@ public class Ventas extends ItemPanel {
 
     @Override
     protected String[] getColumnsForList() {
-        return new String[]{"id", "fecha", "dni/cuit cliente", "Total", "Envio"};
+        return new String[]{"Id Venta", "Fecha", "DNI/CUIT Cliente", "Total", "Envio"};
     }
 
     @Override

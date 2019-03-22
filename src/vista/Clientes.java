@@ -17,7 +17,7 @@ public class Clientes extends ItemPanel {
 
 	@Override
     protected String[] getColumnsForList() {
-        return new String[]{"Nombre","dni/cuit","email","telefono", "Tipo Cliente"};
+        return new String[]{"Nombre","DNI/CUIT","Email","Telefono", "Tipo Cliente"};
     }
 
     @Override

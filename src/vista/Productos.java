@@ -87,7 +87,7 @@ public class Productos extends ItemPanel {
 
     @Override
     protected String[] getColumnsForList() {
-        return new String[]{"codigo", "nombre", "stock" ,"descripcion", "marca", "modelo"};
+        return new String[]{"Codigo", "Nombre", "Stock" ,"Descripcion", "Marca", "Modelo"};
     }
 
     @Override
