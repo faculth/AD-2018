@@ -11,7 +11,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ExportExcelServicio {
-	public static boolean exportExcel(String nombreHoja, Map<String, Object[]> data, String fileName) {
+	public static boolean exportExcel(String nombreHoja, Map<String, Object[]> data, String fileName, String ruta) {
 		// Creamos el libro de trabajo
 		XSSFWorkbook libro = new XSSFWorkbook();
 
@@ -40,7 +40,7 @@ public class ExportExcelServicio {
 		}
 		try {
 			// Escribimos en fichero
-			FileOutputStream out = new FileOutputStream(new File(fileName));
+			FileOutputStream out = new FileOutputStream(new File(ruta + "\\" + fileName));
 			libro.write(out);
 			//cerramos el fichero y el libro
 			out.close();

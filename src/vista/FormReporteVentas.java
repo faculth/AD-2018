@@ -10,18 +10,21 @@ import servicios.VentaServicio;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import javax.swing.JButton;
 
 public class FormReporteVentas extends JPanel implements ActionListener{
 	/**
@@ -31,7 +34,7 @@ public class FormReporteVentas extends JPanel implements ActionListener{
 	private JTextField textField;
 	private JTextField textField_1;
 	private JLabel lblHasta;
-
+	private String ruta;
 	/**
 	 * Create the panel.
 	 */
@@ -46,8 +49,8 @@ public class FormReporteVentas extends JPanel implements ActionListener{
 		textField.setColumns(10);
 		
 		textField_1 = new JTextField();
-		textField_1.setColumns(10);
 		textField_1.setBounds(118, 73, 146, 19);
+		textField_1.setColumns(10);
 		add(textField_1);
 		
 		JLabel lblDesde = new JLabel("Desde: ");
@@ -57,6 +60,31 @@ public class FormReporteVentas extends JPanel implements ActionListener{
 		lblHasta = new JLabel("Hasta:");
 		lblHasta.setBounds(54, 76, 70, 15);
 		add(lblHasta);
+		
+		JLabel lblRuta = new JLabel("Ruta de Destino:");
+		lblRuta.setBounds(54, 118, 100, 24);
+		add(lblRuta);
+		
+		JButton btnExaminar = new JButton("Examinar...");
+		btnExaminar.setBounds(164, 119, 100, 23);
+		btnExaminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JFileChooser fileChooser = new JFileChooser();
+		    	fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		    	
+		    	int option = fileChooser.showDialog(null,"Seleccionar");
+
+		    	if (option == JFileChooser.APPROVE_OPTION) {
+		    	    File f = fileChooser.getSelectedFile();
+		    	    // if the user accidently click a file, then select the parent directory.
+		    	    if (!f.isDirectory()) {
+		    	        f = f.getParentFile();
+		    	    }
+		    	    ruta = f.getAbsolutePath();
+		    	}
+			}
+		});
+		add(btnExaminar);
 
 	}
 
@@ -125,7 +153,7 @@ public class FormReporteVentas extends JPanel implements ActionListener{
 				contador++;
 				scontador = String.valueOf(contador);
 			 }
-			 boolean res = ExportExcelServicio.exportExcel("DatosVentas",data,"Ventas_"+fecIni+"_"+fecFin+".xlsx");
+			 boolean res = ExportExcelServicio.exportExcel("DatosVentas",data,"Ventas_"+fecIni+"_"+fecFin+".xlsx",ruta);
 			 if(res) {
 				 return 0;
 			 }else {
