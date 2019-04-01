@@ -7,7 +7,9 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+import controlador.LoginController;
 import modelo.Cliente;
+import modelo.Usuario;
 import modelo.Venta;
 import persistencia.VentaMapper;
 import servicios.ClienteServicio;
@@ -61,6 +63,8 @@ public class Ventas extends ItemPanel {
         actionButton2.addActionListener(this);
         actionButton5.addActionListener(this);
         
+        bloquearBotones();
+        
         itemsCount = VentaMapper.getInstancia().getCantVentas();
         setPagesInfo();
         
@@ -89,7 +93,15 @@ public class Ventas extends ItemPanel {
         cargarVentas(0,30);
     }
     
-    private void cargarVentas(int inicio, int fin) {
+    private void bloquearBotones() {
+	    Usuario user = LoginController.getUsuarioLogueado();
+	   	 if(user.getRol().getNombre().equals("Encargado")){
+	   		actionButton1.setEnabled(false);
+            actionButton2.setEnabled(false);
+	   	 }
+	}
+
+	private void cargarVentas(int inicio, int fin) {
     	searchModel.setRowCount(0);
         List<Venta> ventas = VentaServicio.getInstancia().obtenerVentas(inicio, fin);
         ventas.forEach(v -> agregarVentaTabla(v));

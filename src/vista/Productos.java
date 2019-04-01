@@ -7,7 +7,9 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import controlador.LoginController;
 import modelo.Producto;
+import modelo.Usuario;
 import servicios.ProductoServicio;
 
 public class Productos extends ItemPanel {
@@ -105,6 +107,8 @@ public class Productos extends ItemPanel {
         actionButton5.addActionListener(this);
         actionButton6.addActionListener(this);
         
+        bloquearBotones();
+        
         itemsCount = ProductoServicio.getInstancia().getCantProd();
         setPagesInfo();
         
@@ -133,7 +137,18 @@ public class Productos extends ItemPanel {
         cargarProductos(0,30);
     }
     
-    private void cargarProductos(int inicio, int fin) {
+    private void bloquearBotones() {
+		 Usuario user = LoginController.getUsuarioLogueado();
+		 if(user.getRol().getNombre().equals("Encargado")){
+			 actionButton1.setEnabled(false);
+	         actionButton2.setEnabled(false);
+	         actionButton3.setEnabled(false);
+	         actionButton4.setEnabled(false);
+	         actionButton6.setEnabled(false);
+		 }
+	}
+
+	private void cargarProductos(int inicio, int fin) {
     	searchModel.setRowCount(0);
         List<Producto> productos = ProductoServicio.getInstancia().obtenerProductos(inicio, fin);
         productos.forEach(p -> agregarProductoTabla(p));

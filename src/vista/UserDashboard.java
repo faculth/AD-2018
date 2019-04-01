@@ -2,7 +2,9 @@ package vista;
 
 
 
+import controlador.LoginController;
 import controlador.Sistema;
+import modelo.Usuario;
 
 import javax.swing.*;
 import java.awt.*;
@@ -58,29 +60,29 @@ public class UserDashboard extends JPanel implements ActionListener {
 		welcomeMsg.setBounds(286, 26, 394, 21);
 		add(welcomeMsg);
 		
+		habilitarBotonones();
+	}
+    
+    public void habilitarBotonones(){
+    	Usuario user = LoginController.getUsuarioLogueado();
+
+		Button ventas = new Button("Ventas");
+		ventas.setBackground(Color.LIGHT_GRAY);
+		ventas.setBounds(10, 158, 99, 23);
+		ventas.addActionListener(this);
+		add(ventas);
+		
 		Button productos = new Button("Productos");
 		productos.setBackground(Color.LIGHT_GRAY);
 		productos.addActionListener(this);
 		productos.setBounds(10, 187, 99, 23);
 		add(productos);
 		
-		Button reclamos = new Button("Reclamos");
-		reclamos.setBackground(Color.LIGHT_GRAY);
-		reclamos.addActionListener(this);
-		reclamos.setBounds(10, 245, 99, 23);
-		add(reclamos);
-		
-		Button clientes = new Button("Clientes");
+    	Button clientes = new Button("Clientes");
 		clientes.setBackground(Color.LIGHT_GRAY);
 		clientes.addActionListener(this);
 		clientes.setBounds(10, 274, 99, 23);
 		add(clientes);
-		
-		Button ventas = new Button("Ventas");
-		ventas.setBackground(Color.LIGHT_GRAY);
-		ventas.setBounds(10, 158, 99, 23);
-		ventas.addActionListener(this);
-		add(ventas);
 
 		Button envios = new Button("Envios");
 		envios.setBackground(Color.LIGHT_GRAY);
@@ -88,25 +90,32 @@ public class UserDashboard extends JPanel implements ActionListener {
 		envios.addActionListener(this);
 		add(envios);
 
+		Button reclamos = new Button("Reclamos");
+		reclamos.setBackground(Color.LIGHT_GRAY);
+		reclamos.addActionListener(this);
+		reclamos.setBounds(10, 245, 99, 23);
+		add(reclamos);
+
+		Button usuarios = new Button("Usuarios");
+		usuarios.setBackground(Color.LIGHT_GRAY);
+		usuarios.setBounds(10, 303, 99, 23);
+		usuarios.addActionListener(this);
+		add(usuarios);
+		
 		Button logout = new Button("Salir");
 		logout.setBackground(Color.LIGHT_GRAY);
 		logout.setBounds(10, 704, 99, 23);
 		logout.addActionListener(this);
 		add(logout);
 		
-		Button usuarios = new Button("Usuarios");
-		usuarios.setBackground(Color.LIGHT_GRAY);
-		usuarios.setBounds(10, 303, 99, 23);
-		usuarios.addActionListener(this);
-		add(usuarios);
-
-
-	}
-
-	public void setMainPanel(JPanel mainPanel) {
-       /* mainPanel = new ListCreationForm();
-        mainPanel.setBounds(118, 65, 704, 466);
-        add(mainPanel);*/
+    	if(user.getRol().getNombre().equals("Vendedor")){
+    		reclamos.setEnabled(false);
+    		usuarios.setEnabled(false);
+    	}
+    	else if(user.getRol().getNombre().equals("Encargado")){
+    		clientes.setEnabled(false);
+    		envios.setEnabled(false);
+    	}
     }
 
     @Override

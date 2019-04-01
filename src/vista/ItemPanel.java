@@ -93,6 +93,27 @@ abstract class ItemPanel extends JPanel implements ActionListener {
 
 
 	protected void buildTopElements() {
+		habilitarBotones();
+		configureActions();
+	}
+
+	protected void configureActions(){
+
+    }
+
+    protected String getSectionText() {
+        return "Section:";
+    }
+
+	protected String getTootltipForSearchBar() {
+		return "Search by : ";
+	}
+	
+	protected void setPagesInfo(){
+		lblPagination.setText(String.valueOf(1 + currentPage*30) +" - "+ String.valueOf(currentPage *30 +30) + " de " + itemsCount);
+	}
+	
+	private void habilitarBotones(){
         actionButton1 = new JButton("Action1");
 		layout.putConstraint(SpringLayout.WEST, actionButton1, 10, SpringLayout.WEST, topPanel);
 		topPanel.add(actionButton1);
@@ -131,23 +152,5 @@ abstract class ItemPanel extends JPanel implements ActionListener {
 		layout.putConstraint(SpringLayout.SOUTH, actionButton6, 31, SpringLayout.SOUTH, actionButton1);
 		layout.putConstraint(SpringLayout.EAST, actionButton6, 0, SpringLayout.EAST, actionButton3);
 		topPanel.add(actionButton6);
-
-		configureActions();
-	}
-
-	protected void configureActions(){
-
-    }
-
-    protected String getSectionText() {
-        return "Section:";
-    }
-
-	protected String getTootltipForSearchBar() {
-		return "Search by : ";
-	}
-	
-	protected void setPagesInfo(){
-		lblPagination.setText(String.valueOf(1 + currentPage*30) +" - "+ String.valueOf(currentPage *30 +30) + " de " + itemsCount);
 	}
 }
