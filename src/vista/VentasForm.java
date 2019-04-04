@@ -42,7 +42,9 @@ public class VentasForm extends JPanel implements ActionListener {
     private JLabel cantItems;
     private JLabel lblFechaStamp;
     private List<ItemVenta> items;
-
+    private JTextField txtPrecioConDescuento;
+    Venta v;
+    Usuario usr;
     /**
 	 * Create the panel.
 	 */
@@ -103,12 +105,12 @@ public class VentasForm extends JPanel implements ActionListener {
 		add(lblItems);
 		
 		JButton btnAgregarItem = new JButton("Agregar Item");
-		btnAgregarItem.setBounds(141, 339, 126, 25);
+		btnAgregarItem.setBounds(88, 339, 126, 25);
 		add(btnAgregarItem);
 		btnAgregarItem.addActionListener(this);
 		
 		JButton btnEliminarItem = new JButton("Eliminar Item");
-		btnEliminarItem.setBounds(298, 339, 126, 25);
+		btnEliminarItem.setBounds(224, 339, 126, 25);
 		add(btnEliminarItem);
 		btnEliminarItem.addActionListener(this);
 
@@ -117,7 +119,7 @@ public class VentasForm extends JPanel implements ActionListener {
 		lblSubtotal.setBounds(88, 386, 97, 15);
 		add(lblSubtotal);
 		
-		JLabel lblDescuento = new JLabel("Descuento: %");
+		JLabel lblDescuento = new JLabel("Descuento:   %");
 		lblDescuento.setBounds(280, 386, 97, 15);
 		add(lblDescuento);
 		
@@ -135,6 +137,33 @@ public class VentasForm extends JPanel implements ActionListener {
 		cantItems = new JLabel("");
 		cantItems.setBounds(347, 137, 46, 14);
 		add(cantItems);
+		
+		JButton btnAplicDesc = new JButton("Aplicar descuento");
+		btnAplicDesc.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				float total = 0;
+				float descuento = 0;
+				float totalDesc = 0;
+				for(int i = 0;i<items.size();i++){
+					total = total + items.get(i).calcularSubtotal();
+				}
+				descuento = total*Integer.parseInt(txtDescuento.getText())/100;
+				totalDesc = total - descuento;
+				txtPrecioConDescuento.setText(String.valueOf(totalDesc));
+			}
+		});
+		btnAplicDesc.setBounds(360, 339, 130, 25);
+		add(btnAplicDesc);
+		
+		txtPrecioConDescuento = new JTextField();
+		txtPrecioConDescuento.setText("0");
+		txtPrecioConDescuento.setColumns(3);
+		txtPrecioConDescuento.setBounds(359, 412, 70, 15);
+		add(txtPrecioConDescuento);
+		
+		JLabel lblPrecioConDescuento = new JLabel("Precio total con descuento:");
+		lblPrecioConDescuento.setBounds(211, 413, 139, 15);
+		add(lblPrecioConDescuento);
 	}
 	
 	private void setVariables() {
@@ -189,8 +218,8 @@ public class VentasForm extends JPanel implements ActionListener {
 			break;
 		case "Guardar":
 			if(items != null && !items.isEmpty()) {
-				Usuario usr = LoginController.getUsuarioLogueado();
-				Venta v = new Venta(lblFechaStamp.getText(), usr, cliente, items, Integer.parseInt(txtDescuento.getText()));
+				usr = LoginController.getUsuarioLogueado();
+				v = new Venta(lblFechaStamp.getText(), usr, cliente, items, Integer.parseInt(txtDescuento.getText()));
 				int res = VentaServicio.getInstancia().generarVenta(v);
 				if(res > 0){
 					JOptionPane.showMessageDialog(null, "Venta guardada correctamente", "", JOptionPane.INFORMATION_MESSAGE);

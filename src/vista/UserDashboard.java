@@ -47,7 +47,6 @@ public class UserDashboard extends JPanel implements ActionListener {
 		mainPanel.setBounds(125, 59, 887, 697);
 		add(mainPanel);
 		cardLayout = new CardLayout(0, 0);
-		JPanel cardLayout2 = new JPanel();
 		mainPanel.setLayout(cardLayout);
 		defaultPanel = new JPanel();
 		defaultPanel.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
@@ -117,8 +116,7 @@ public class UserDashboard extends JPanel implements ActionListener {
     		envios.setEnabled(false);
     	}
     }
-
-    @Override
+    
     public void actionPerformed(ActionEvent e) {
     	if (e.getActionCommand() == "Salir") {
 			System.exit(0);
