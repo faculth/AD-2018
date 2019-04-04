@@ -135,21 +135,19 @@ public class FormReporteVentas extends JPanel implements ActionListener{
 		ventas = VentaServicio.getInstancia().nuevoReporteVentas(fechaDesde,fechaHasta);
 		if(!ventas.isEmpty()){
 			Map<String, Object[]> data = new TreeMap<String, Object[]>();
-			data.put("1", new Object[] {"Numero de venta", "Fecha", "Total","Cliente","Vendedor","Descuento","Numero de envio","Numero de reclamo"});
+			data.put("1", new Object[] {"Id de la venta", "Fecha", "Total","Cliente","Vendedor","Descuento"});
 			for(int i = 0;i<ventas.size();i++){
 				fVenta = ventas.get(i).getFechaVenta();
 				String total = String.valueOf(ventas.get(i).getTotal());
 				int dniCli = ventas.get(i).getCliente().getDni();
 				int dniUser = ventas.get(i).getUsuario().getDni();
 				String descuento = String.valueOf(ventas.get(i).getDescuento());
-				if(ventas.get(i).getEnvio() != null && ventas.get(i).getReclamo() != null){
+				/*if(ventas.get(i).getEnvio() != null && ventas.get(i).getReclamo() != null){
 					int envio = ventas.get(i).getEnvio().getNumEnvio();
 					int reclamo = ventas.get(i).getReclamo().getNumeroReclamo();
 					data.put(scontador, new Object[] {ventas.get(i).getNumeroVenta(),fVenta,total,dniCli,dniUser,descuento,envio,reclamo});
-				}
-				else{
-					data.put(scontador, new Object[] {ventas.get(i).getNumeroVenta(),fVenta,total,dniCli,dniUser,descuento});
-				}
+				}*/
+				data.put(scontador, new Object[] {ventas.get(i).getNumeroVenta(),fVenta,total,dniCli,dniUser,descuento});
 				contador++;
 				scontador = String.valueOf(contador);
 			 }
