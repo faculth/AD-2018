@@ -13,11 +13,8 @@ import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-import modelo.Envio;
 import modelo.Reclamo;
 import modelo.Venta;
-import persistencia.EnvioMapper;
-import persistencia.ReclamoMapper;
 
 public class ReclamosForm extends JPanel implements ActionListener{
     
@@ -36,28 +33,28 @@ public class ReclamosForm extends JPanel implements ActionListener{
         setLayout(null);
         
         JLabel lblIdReclamo = new JLabel("Id venta:");
-        lblIdReclamo.setBounds(189, 46, 104, 15);
+        lblIdReclamo.setBounds(38, 46, 104, 15);
         add(lblIdReclamo);
 
         JLabel lblDescripcion = new JLabel("Descripci\u00F3n:");
-        lblDescripcion.setBounds(189, 111, 94, 15);
+        lblDescripcion.setBounds(38, 93, 94, 15);
         add(lblDescripcion);
 
         JLabel lblEstado = new JLabel("Estado:");
-        lblEstado.setBounds(189, 197, 76, 15);
+        lblEstado.setBounds(38, 197, 76, 15);
         add(lblEstado);
         
         JTextArea txtDescripcion = new JTextArea();
-        txtDescripcion.setBounds(382, 111, 176, 72);
+        txtDescripcion.setBounds(151, 88, 176, 72);
         add(txtDescripcion);
         
         JLabel lblNewLabel = new JLabel(idVenta);
-        lblNewLabel.setBounds(382, 46, 70, 15);
+        lblNewLabel.setBounds(152, 46, 70, 15);
         add(lblNewLabel);
 
         comboBox = new JComboBox<String>();
         comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"En proceso", "Resuelto"}));
-        comboBox.setBounds(380, 197, 178, 24);
+        comboBox.setBounds(149, 192, 178, 24);
         add(comboBox);
     }
 

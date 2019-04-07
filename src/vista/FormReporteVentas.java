@@ -1,20 +1,6 @@
 package vista;
 
-import javax.swing.JPanel;
-import javax.swing.UIManager;
-
-import modelo.Venta;
-import servicios.ExportExcelServicio;
-import servicios.VentaServicio;
-
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-import javax.swing.JDialog;
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import java.awt.*;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -24,7 +10,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+
 import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+
+import modelo.Venta;
+import servicios.ExportExcelServicio;
+import servicios.VentaServicio;
 
 public class FormReporteVentas extends JPanel implements ActionListener{
 	/**

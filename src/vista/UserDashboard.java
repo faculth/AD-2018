@@ -2,20 +2,22 @@ package vista;
 
 
 
+import java.awt.Button;
+import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Label;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.LineBorder;
+
 import controlador.LoginController;
 import controlador.Sistema;
 import modelo.Usuario;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.Label;
-import java.awt.CardLayout;
-import javax.swing.border.BevelBorder;
-import java.awt.Font;
-import javax.swing.UIManager;
-import java.awt.event.ActionListener;
-import javax.swing.border.LineBorder;
 
 
 public class UserDashboard extends JPanel implements ActionListener {

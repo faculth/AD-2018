@@ -1,11 +1,11 @@
 package vista;
 
-import javax.swing.*;
+import java.awt.event.ActionEvent;
+
+import javax.swing.JOptionPane;
 
 import modelo.Venta;
 import servicios.VentaServicio;
-
-import java.awt.event.ActionEvent;
 
 public class Reclamos extends ItemPanel {
     /**
@@ -56,6 +56,8 @@ public class Reclamos extends ItemPanel {
         			 ReclamosForm form  = new ReclamosForm(v);
         			 FormDialog formCreation = new FormDialog(form);
         		     formCreation.setLocationRelativeTo(null);
+        		     formCreation.setTitle("Nuevo Reclamo");
+        		     formCreation.setSize(400, 350);
         		     formCreation.setVisible(true);
         		}
         }

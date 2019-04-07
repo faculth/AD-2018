@@ -1,10 +1,11 @@
 package Launcher;
 
+import javax.swing.JFrame;
+import javax.swing.WindowConstants;
+
 import controlador.IController;
 import controlador.LoginController;
 import controlador.Sistema;
-
-import javax.swing.*;
 
 public class Launcher {
 
