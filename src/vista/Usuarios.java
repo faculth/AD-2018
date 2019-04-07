@@ -24,6 +24,7 @@ public class Usuarios extends ItemPanel {
                 UserForm form = new UserForm();
                 FormDialog formCreation = new FormDialog(form);
                 formCreation.setLocationRelativeTo(null);
+                formCreation.setTitle("Nuevo Usuario");
                 formCreation.setVisible(true);
                 break;
             case "Eliminar":

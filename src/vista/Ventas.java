@@ -148,6 +148,7 @@ public class Ventas extends ItemPanel {
         FormReporteVentas form  = new FormReporteVentas();
         FormDialog formCreation = new FormDialog(form);
         formCreation.setLocationRelativeTo(null);
+        formCreation.setTitle("Reporte de Ventas");
         formCreation.setSize(400,250);
         formCreation.setVisible(true);
     }

@@ -53,7 +53,7 @@ public class UserForm extends JPanel implements ActionListener{
 		dnilbl.setBounds(189, 138, 70, 15);
 		add(dnilbl);
 		
-		JLabel lblPassword = new JLabel("contrasena:");
+		JLabel lblPassword = new JLabel("Contrase\u00F1a:");
 		lblPassword.setBounds(189, 251, 94, 15);
 		add(lblPassword);
 		
@@ -65,7 +65,7 @@ public class UserForm extends JPanel implements ActionListener{
 		passwordField_1.setBounds(376, 307, 182, 19);
 		add(passwordField_1);
 		
-		JLabel lblConfirmarContrasena = new JLabel("confirmar contrasena:");
+		JLabel lblConfirmarContrasena = new JLabel("Confirmar contrase\u00F1a:");
 		lblConfirmarContrasena.setBounds(189, 309, 169, 15);
 		add(lblConfirmarContrasena);
 		

@@ -12,7 +12,11 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 
 public class FormReporteProductos extends JPanel implements ActionListener {
-    private JTextField textField_1;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -5495801367381874050L;
+	private JTextField textField_1;
     private JLabel lblHasta;
     private JComboBox comboBox;
 
@@ -38,7 +42,7 @@ public class FormReporteProductos extends JPanel implements ActionListener {
         add(lblHasta);
 
         comboBox = new JComboBox();
-        comboBox.setModel(new DefaultComboBoxModel(new String[] {"Marca", "Modelo"}));
+        comboBox.setModel(new DefaultComboBoxModel(new String[] {"Modelo", "Marca"}));
         comboBox.setBounds(244, 26, 146, 24);
         add(comboBox);
         comboBox.addActionListener(this);

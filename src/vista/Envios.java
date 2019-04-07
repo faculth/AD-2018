@@ -95,6 +95,7 @@ public class Envios extends ItemPanel {
 			        formCreation.setSize(350, 380);
 			        formCreation.setLocationRelativeTo(null);
 			        formCreation.setVisible(true);
+			        formCreation.setTitle("Nuevo Envío");
 			        formCreation.addWindowListener(new WindowAdapter() {
 		                @Override
 		                public void windowClosed(WindowEvent e) {
@@ -120,6 +121,7 @@ public class Envios extends ItemPanel {
     		        FormDialog formCreation = new FormDialog(form);
     		        formCreation.setSize(350, 380);
     		        formCreation.setLocationRelativeTo(null);
+    		        formCreation.setTitle("Editar Envío");
     		        formCreation.setVisible(true);
 			        formCreation.addWindowListener(new WindowAdapter() {
 		                @Override

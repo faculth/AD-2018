@@ -81,7 +81,7 @@ public class VentasForm extends JPanel implements ActionListener {
 		add(lblDNI);
 
 		
-        String[] columnNames = {"Nombre","Codigo", "precio", "cantidad"};
+        String[] columnNames = {"Nombre","Codigo", "Precio", "Cantidad"};
         Object[][] tableData = {};
         
         tableModel = new DefaultTableModel(tableData, columnNames) {
@@ -120,7 +120,7 @@ public class VentasForm extends JPanel implements ActionListener {
 		add(lblSubtotal);
 		
 		JLabel lblDescuento = new JLabel("Descuento:   %");
-		lblDescuento.setBounds(280, 386, 97, 15);
+		lblDescuento.setBounds(276, 386, 97, 15);
 		add(lblDescuento);
 		
 		txtDescuento = new JTextField();
@@ -162,7 +162,7 @@ public class VentasForm extends JPanel implements ActionListener {
 		add(txtPrecioConDescuento);
 		
 		JLabel lblPrecioConDescuento = new JLabel("Precio total con descuento:");
-		lblPrecioConDescuento.setBounds(211, 413, 139, 15);
+		lblPrecioConDescuento.setBounds(183, 413, 167, 15);
 		add(lblPrecioConDescuento);
 	}
 	

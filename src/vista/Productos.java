@@ -31,12 +31,6 @@ public class Productos extends ItemPanel {
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
             case "Agregar":
-                ProductForm form = new ProductForm(null,null);
-                FormDialog formCreation = new FormDialog(form);
-                formCreation.setTitle("Alta de productos");
-                formCreation.setSize(400, 380);
-                formCreation.setLocationRelativeTo(null);
-                formCreation.setVisible(true);
                 break;
             case "Modificar":
                 String input2 = JOptionPane.showInputDialog("Ingrese codigo de producto: ");
@@ -176,6 +170,8 @@ public class Productos extends ItemPanel {
         FormReporteProductos form  = new FormReporteProductos();
         FormDialog formCreation = new FormDialog(form);
         formCreation.setLocationRelativeTo(null);
+        formCreation.setTitle("Reporte de Productos");
+        formCreation.setSize(529, 200);
         formCreation.setVisible(true);
     }
 
