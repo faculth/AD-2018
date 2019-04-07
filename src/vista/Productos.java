@@ -3,6 +3,8 @@ package vista;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -47,6 +49,12 @@ public class Productos extends ItemPanel {
     	                formCreation2.setSize(400, 380);
     	                formCreation2.setLocationRelativeTo(null);
     	                formCreation2.setVisible(true);
+    	                formCreation2.addWindowListener(new WindowAdapter() {
+    		                @Override
+    		                public void windowClosed(WindowEvent e) {
+    		                	cargarProductos(currentPage*30, 30);
+    		                }
+    			        });
                 	}
                 	else
                 		JOptionPane.showMessageDialog(null, "Busqueda sin resultados.");
@@ -63,6 +71,12 @@ public class Productos extends ItemPanel {
 		                formCreation2.setSize(400, 380);
 		                formCreation2.setLocationRelativeTo(null);
 		                formCreation2.setVisible(true);
+    	                formCreation2.addWindowListener(new WindowAdapter() {
+    		                @Override
+    		                public void windowClosed(WindowEvent e) {
+    		                	cargarProductos(currentPage*30, 30);
+    		                }
+    			        });
                 	}
                 	else
                         JOptionPane.showMessageDialog(null, "Busqueda sin resultados.");

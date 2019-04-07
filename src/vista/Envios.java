@@ -1,6 +1,8 @@
 package vista;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -93,6 +95,12 @@ public class Envios extends ItemPanel {
 			        formCreation.setSize(350, 380);
 			        formCreation.setLocationRelativeTo(null);
 			        formCreation.setVisible(true);
+			        formCreation.addWindowListener(new WindowAdapter() {
+		                @Override
+		                public void windowClosed(WindowEvent e) {
+		                	cargarEnvios(currentPage*30, 30);
+		                }
+			        });
         		}
         	}else {
         		JOptionPane.showMessageDialog(null, "No existe venta con ese Id");
@@ -113,6 +121,12 @@ public class Envios extends ItemPanel {
     		        formCreation.setSize(350, 380);
     		        formCreation.setLocationRelativeTo(null);
     		        formCreation.setVisible(true);
+			        formCreation.addWindowListener(new WindowAdapter() {
+		                @Override
+		                public void windowClosed(WindowEvent e) {
+		                	cargarEnvios(currentPage*30, 30);
+		                }
+			        });
         		}
         	}
         	else if(status == 0) {

@@ -2,6 +2,9 @@ package vista;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -128,6 +131,13 @@ public class Ventas extends ItemPanel {
 		        formCreation.setTitle("Nueva Venta");
 		        formCreation.setLocationRelativeTo(null);
 		        formCreation.setVisible(true);
+		        formCreation.addWindowListener(new WindowAdapter() {
+		                @Override
+		                public void windowClosed(WindowEvent e) {
+		                	cargarVentas(currentPage*30, 30);
+		                }
+		        });
+
 	        }else {
 	        	JOptionPane.showMessageDialog(null, "Cliente no encontrado");
 	        }
