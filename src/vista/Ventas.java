@@ -97,9 +97,11 @@ public class Ventas extends ItemPanel {
     
     private void bloquearBotones() {
 	    Usuario user = LoginController.getUsuarioLogueado();
-	   	 if(user.getRol().getNombre().equals("Encargado")){
-	   		actionButton1.setEnabled(false);
+	   	 if(user.getRol().getNombre().equals("Vendedor")){
             actionButton2.setEnabled(false);
+	   	 }
+	   	 else if(user.getRol().getNombre().equals("Encargado")){
+	   		actionButton1.setEnabled(false);
 	   	 }
 	}
 

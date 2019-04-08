@@ -151,8 +151,10 @@ public class Productos extends ItemPanel {
 			 actionButton1.setEnabled(false);
 	         actionButton2.setEnabled(false);
 	         actionButton3.setEnabled(false);
-	         actionButton4.setEnabled(false);
 	         actionButton6.setEnabled(false);
+		 }
+		 else if(user.getRol().getNombre().equals("Vendedor")){
+			 actionButton4.setEnabled(false);
 		 }
 	}
 

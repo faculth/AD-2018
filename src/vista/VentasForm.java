@@ -152,7 +152,7 @@ public class VentasForm extends JPanel implements ActionListener {
 				txtPrecioConDescuento.setText(String.valueOf(totalDesc));
 			}
 		});
-		btnAplicDesc.setBounds(360, 339, 130, 25);
+		btnAplicDesc.setBounds(360, 339, 156, 25);
 		add(btnAplicDesc);
 		
 		txtPrecioConDescuento = new JTextField();
