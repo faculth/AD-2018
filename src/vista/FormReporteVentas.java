@@ -119,6 +119,9 @@ public class FormReporteVentas extends JPanel implements ActionListener{
         			JOptionPane.showMessageDialog(null, "La fecha de inicio no debe superar a la fecha de fin");
         		}
         	}
+        	else{
+        		JOptionPane.showMessageDialog(null, "Debe ingresar las fechas.");
+        	}
         break;		
         }
 	}
@@ -141,11 +144,6 @@ public class FormReporteVentas extends JPanel implements ActionListener{
 				int dniCli = ventas.get(i).getCliente().getDni();
 				int dniUser = ventas.get(i).getUsuario().getDni();
 				String descuento = String.valueOf(ventas.get(i).getDescuento());
-				/*if(ventas.get(i).getEnvio() != null && ventas.get(i).getReclamo() != null){
-					int envio = ventas.get(i).getEnvio().getNumEnvio();
-					int reclamo = ventas.get(i).getReclamo().getNumeroReclamo();
-					data.put(scontador, new Object[] {ventas.get(i).getNumeroVenta(),fVenta,total,dniCli,dniUser,descuento,envio,reclamo});
-				}*/
 				data.put(scontador, new Object[] {ventas.get(i).getNumeroVenta(),fVenta,total,dniCli,dniUser,descuento});
 				contador++;
 				scontador = String.valueOf(contador);
