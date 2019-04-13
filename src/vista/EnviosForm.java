@@ -51,7 +51,7 @@ public class EnviosForm extends JPanel implements ActionListener{
 	        add(lbldinamic);
 	        
 	        comboBox = new JComboBox<String>();
-	        comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Despachado", "Entregado"}));
+	        comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"En Preparación","Despachado", "Entregado"}));
 	        comboBox.setBounds(124, 187, 117, 24);
 	        add(comboBox);
 	        
@@ -87,7 +87,7 @@ public class EnviosForm extends JPanel implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 	        switch (e.getActionCommand()) {
             case "Guardar":
-            	if(comboBox.getSelectedItem().toString().equals("Despachado")) {
+            	if(comboBox.getSelectedItem().toString().equals("En Preparación")) {
         			EnvioMapper.getInstancia().registrarEnvio(venta);
         			JOptionPane.showMessageDialog(null, "Envio registrado correctamente");
             	}else{

@@ -2,6 +2,8 @@ package vista;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
@@ -93,6 +95,22 @@ public class Ventas extends ItemPanel {
 		});
         
         cargarVentas(0,30);
+        
+        this.addComponentListener(new ComponentListener() {
+			@Override
+			public void componentShown(ComponentEvent arg0) {
+				cargarVentas(currentPage*30, 30);
+			}
+			
+			@Override
+			public void componentResized(ComponentEvent arg0) {}
+			
+			@Override
+			public void componentMoved(ComponentEvent arg0) {}
+			
+			@Override
+			public void componentHidden(ComponentEvent arg0) {}
+		});
     }
     
     private void bloquearBotones() {
@@ -109,6 +127,7 @@ public class Ventas extends ItemPanel {
     	searchModel.setRowCount(0);
         List<Venta> ventas = VentaServicio.getInstancia().obtenerVentas(inicio, fin);
         ventas.forEach(v -> agregarVentaTabla(v));
+        
     }
     
     private void agregarVentaTabla(Venta v) {
