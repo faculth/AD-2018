@@ -141,15 +141,19 @@ public class VentasForm extends JPanel implements ActionListener {
 		JButton btnAplicDesc = new JButton("Aplicar descuento");
 		btnAplicDesc.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				float total = 0;
-				float descuento = 0;
-				float totalDesc = 0;
-				for(int i = 0;i<items.size();i++){
-					total = total + items.get(i).calcularSubtotal();
+				if(!txtDescuento.getText().isEmpty()) {
+					float total = 0;
+					float descuento = 0;
+					float totalDesc = 0;
+					for(int i = 0;i<items.size();i++){
+						total = total + items.get(i).calcularSubtotal();
+					}
+					descuento = total*Integer.parseInt(txtDescuento.getText())/100;
+					totalDesc = total - descuento;
+					txtPrecioConDescuento.setText(String.valueOf(totalDesc));
+				}else {
+					txtPrecioConDescuento.setText("");
 				}
-				descuento = total*Integer.parseInt(txtDescuento.getText())/100;
-				totalDesc = total - descuento;
-				txtPrecioConDescuento.setText(String.valueOf(totalDesc));
 			}
 		});
 		btnAplicDesc.setBounds(360, 339, 156, 25);
@@ -158,6 +162,7 @@ public class VentasForm extends JPanel implements ActionListener {
 		txtPrecioConDescuento = new JTextField();
 		txtPrecioConDescuento.setText("0");
 		txtPrecioConDescuento.setColumns(3);
+		txtPrecioConDescuento.setEditable(false);
 		txtPrecioConDescuento.setBounds(359, 412, 70, 15);
 		add(txtPrecioConDescuento);
 		

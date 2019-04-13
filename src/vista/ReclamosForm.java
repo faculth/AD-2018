@@ -23,7 +23,6 @@ public class ReclamosForm extends JPanel implements ActionListener{
 	 */
 	private static final long serialVersionUID = 1L;
 	private JComboBox<String> comboBox;
-	private Venta venta;
 	/**
      * Create the panel.
      */

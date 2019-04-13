@@ -3,12 +3,12 @@ package vista;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
-
 import javax.swing.JOptionPane;
-
 import controlador.LoginController;
 import modelo.Producto;
 import modelo.Usuario;
@@ -115,6 +115,21 @@ public class Productos extends ItemPanel {
         actionButton5.addActionListener(this);
         actionButton6.addActionListener(this);
         
+        this.addComponentListener(new ComponentListener() {
+			@Override
+			public void componentShown(ComponentEvent arg0) {
+				cargarProductos(currentPage*30, 30);
+			}
+			
+			@Override
+			public void componentResized(ComponentEvent arg0) {}
+			
+			@Override
+			public void componentMoved(ComponentEvent arg0) {}
+			
+			@Override
+			public void componentHidden(ComponentEvent arg0) {}
+		});
         bloquearBotones();
         
         itemsCount = ProductoServicio.getInstancia().getCantProd();
