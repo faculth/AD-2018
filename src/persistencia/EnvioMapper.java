@@ -100,7 +100,7 @@ public class EnvioMapper {
 		int ultimoId = obtenerUltimoEnvio();
 		Envio nuevo = new Envio();
 		nuevo.setNumEnvio(ultimoId+1);
-		nuevo.setEstado("Despachado");
+		nuevo.setEstado("En preparacion");
 		this.save(nuevo);
 		v.setEnvio(nuevo);
 		VentaMapper.getInstancia().update(v);
