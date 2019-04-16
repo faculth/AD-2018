@@ -64,7 +64,7 @@ abstract class ItemPanel extends JPanel implements ActionListener {
         };
 
 		JPanel PaginationPanel = new JPanel();
-		PaginationPanel.setBounds(12, 624, 822, 45);
+		PaginationPanel.setBounds(12, 620, 822, 45);
 		add(PaginationPanel);
 		
 		back = new JButton("<");

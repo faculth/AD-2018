@@ -38,7 +38,7 @@ public class Launcher {
         public void onUserLogin() {
             controller = new Sistema(frame);
             controller.setMain(this);
-            this.frame.setSize(1070, 830);
+            this.frame.setSize(1070, 750);
             frame.setLocationRelativeTo(null);
             run();
         }

@@ -46,7 +46,7 @@ public class UserDashboard extends JPanel implements ActionListener {
 		//** TODO GENERATE ABSTRACT CLASS FROM JPANEL TO SHOW CONTENT
         //** EMPTY first time
 		mainPanel = new JPanel();
-		mainPanel.setBounds(125, 59, 887, 697);
+		mainPanel.setBounds(125, 40, 887, 654);
 		add(mainPanel);
 		cardLayout = new CardLayout(0, 0);
 		mainPanel.setLayout(cardLayout);
@@ -58,7 +58,7 @@ public class UserDashboard extends JPanel implements ActionListener {
 		Label welcomeMsg = new Label("NG PERGAL S.R.L");
 		welcomeMsg.setFont(new Font("Dialog", Font.BOLD, 19));
 		welcomeMsg.setAlignment(Label.CENTER);
-		welcomeMsg.setBounds(286, 26, 394, 21);
+		welcomeMsg.setBounds(285, 10, 394, 21);
 		add(welcomeMsg);
 		
 		habilitarBotonones();
@@ -105,7 +105,7 @@ public class UserDashboard extends JPanel implements ActionListener {
 		
 		Button logout = new Button("Salir");
 		logout.setBackground(Color.LIGHT_GRAY);
-		logout.setBounds(10, 704, 99, 23);
+		logout.setBounds(10, 643, 99, 23);
 		logout.addActionListener(this);
 		add(logout);
 		
